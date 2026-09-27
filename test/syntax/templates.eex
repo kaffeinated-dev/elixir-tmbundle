@@ -1,0 +1,18 @@
+## SYNTAX TEST "text.elixir" "EEx"
+
+Hello <%= @name %>!
+##    ^^^ meta.embedded.line.elixir punctuation.section.embedded.begin.elixir
+##        ^^^^^ meta.embedded.line.elixir source.elixir variable.other.readwrite.module.elixir
+##              ^^ meta.embedded.line.elixir punctuation.section.embedded.end.elixir
+## <----- - meta.embedded.line.elixir
+Literal <%% tags %> are text.
+##      ^^^ constant.character.escape.eex
+##          ^^^^ - meta.embedded.line.elixir
+<%!-- A comment --%> and <%# an old one %>
+## <-------------------- comment.block.eex
+##                       ^^^^^^^^^^^^^^^^^ comment.block.elixir
+<% # a comment in code %>
+## ^^^^^^^^^^^^^^^^^^^ meta.embedded.line.elixir comment.line.number-sign.elixir
+<%= for item <- @items do %>
+##  ^^^ meta.embedded.line.elixir source.elixir keyword.control.elixir
+<% end %>

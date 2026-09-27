@@ -1,0 +1,69 @@
+## SYNTAX TEST "text.html.heex" "HEEx templates"
+
+<div class="card" id={@id} {@rest}>
+## <---- meta.tag.structure.div.start.html
+##         ^^^^^^ meta.attribute.class.html string.quoted.double.html
+##                   ^ meta.attribute.id.html meta.embedded.line.heex punctuation.section.embedded.begin.heex
+##                    ^^^ meta.embedded.line.heex source.elixir variable.other.readwrite.module.elixir
+##                         ^^^^^^^ meta.tag.structure.div.start.html meta.embedded.line.heex
+##                          ^^^^^ meta.embedded.line.heex source.elixir variable.other.readwrite.module.elixir
+  <.button type="submit" phx-click="save" disabled={!@valid}>Save</.button>
+##^ meta.tag.component.heex punctuation.definition.tag.begin.html
+## ^ meta.tag.component.heex punctuation.separator.method.heex
+##  ^^^^^^ meta.tag.component.heex entity.name.tag.component.heex
+##         ^^^^ meta.tag.component.heex entity.other.attribute-name.heex
+##              ^^^^^^^^ meta.tag.component.heex string.quoted.double.html
+##                       ^^^^^^^^^ entity.other.attribute-name.heex
+##                                                  ^ meta.embedded.line.heex source.elixir keyword.operator.logical.elixir
+##                                                           ^^^^ - meta.tag.component.heex
+##                                                                  ^^^^^^ meta.tag.component.heex entity.name.tag.component.heex
+  <MyAppWeb.CoreComponents.modal :if={@show} id="confirm">
+## ^^^^^^^^^^^^^^^^^^^^^^^ meta.tag.component.heex entity.name.type.module.elixir
+##                         ^^^^^ meta.tag.component.heex entity.name.tag.component.heex
+##                               ^^^ meta.tag.component.heex keyword.control.heex
+##                                    ^^^^^ meta.embedded.line.heex source.elixir variable.other.readwrite.module.elixir
+    <:actions :let={form}>
+##   ^ meta.tag.slot.heex punctuation.definition.slot.heex
+##    ^^^^^^^ meta.tag.slot.heex entity.name.tag.slot.heex
+##            ^^^^ meta.tag.slot.heex keyword.other.heex
+      Submit {form.name}
+##            ^^^^ meta.embedded.line.heex source.elixir
+##    ^^^^^^ - meta.embedded.line.heex
+    </:actions>
+##     ^^^^^^^ meta.tag.slot.heex entity.name.tag.slot.heex
+  </MyAppWeb.CoreComponents.modal>
+##                          ^^^^^ meta.tag.component.heex entity.name.tag.component.heex
+  <li :for={{id, item} <- @streams.items} :key={id} id={id}>{item.name}</li>
+##    ^^^^ meta.tag.structure.li.start.html keyword.control.heex
+##         ^ meta.embedded.line.heex punctuation.section.embedded.begin.heex
+##          ^ meta.embedded.line.heex source.elixir punctuation.section.scope.elixir
+##                     ^^ meta.embedded.line.heex source.elixir keyword.operator.arrow.elixir
+##                                        ^^^^ keyword.other.heex
+##                                                          ^^^^^^^^^^^ meta.embedded.line.heex
+  {# A comment in an expression ends at the brace}
+## ^^^^^^^^^^^ meta.embedded.line.heex source.elixir comment.line.number-sign.elixir
+##                                               ^ meta.embedded.line.heex punctuation.section.embedded.end.heex
+
+## Braces in attribute strings are literal; in text they are expressions.
+  <span title="{not} {@expr}">"{@quoted}"</span>
+##             ^^^^^ meta.attribute.title.html string.quoted.double.html
+##             ^^^^^ - meta.embedded.line.heex
+##                             ^ meta.embedded.line.heex punctuation.section.embedded.begin.heex
+
+  <%= if @admin do %>Admin<% end %>
+##^^^ meta.embedded.line.elixir punctuation.section.embedded.begin.elixir
+##    ^^ meta.embedded.line.elixir source.elixir keyword.control.elixir
+##                   ^^^^^ - meta.embedded.line.elixir
+  <%!-- A comment with <.button> and {@expr}
+##^^^^^ comment.block.eex punctuation.definition.comment.begin.eex
+##                     ^^^^^^^^^ comment.block.eex
+  spanning lines --%>
+##               ^^^^ comment.block.eex punctuation.definition.comment.end.eex
+  <script :type={Phoenix.LiveView.ColocatedHook} name=".Hook">
+##        ^^^^^ keyword.other.heex
+##               ^^^^^^^ meta.embedded.line.heex source.elixir entity.name.type.class.elixir
+    export default { mounted() { this.el } }
+##                 ^^^^^^^^^ - meta.embedded.line.heex
+  </script>
+</div>
+## <------ meta.tag.structure.div.end.html
