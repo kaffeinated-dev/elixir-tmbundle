@@ -185,4 +185,158 @@ defmodule CommandsTest do
              ] = result.marks
     end
   end
+
+  describe "Documentation for Word" do
+    test "shows the documentation at the caret", %{project: project} do
+      input = "defmodule Sample.Docs do\n  def a, do: Enum.map([], & &1)\nend\n"
+
+      result =
+        run_command("Documentation for Word", project, "lib/docs.ex",
+          input: input,
+          line: 2,
+          index: 18
+        )
+
+      assert result.status == 0
+      assert result.output =~ "<title>Enum.map</title>"
+      assert result.output =~ ~s(<h1 data-title="Enum.map">)
+      assert result.output =~ "TextMate.system("
+    end
+
+    test "shows the documentation of the selection", %{project: project} do
+      result =
+        run_command("Documentation for Word", project, "lib/docs.ex",
+          env: [{"TM_SELECTED_TEXT", "Enum.reduce/3"}]
+        )
+
+      assert result.output =~ "<title>Enum.reduce/3</title>"
+    end
+
+    test "tells when there's nothing to show", %{project: project} do
+      assert %{status: 206, errors: "No module or function here."} =
+               run_command("Documentation for Word", project, "lib/docs.ex",
+                 input: "\n  \n",
+                 line: 2,
+                 index: 1
+               )
+    end
+
+    test "links in the page show more documentation", %{project: project} do
+      {output, 0} =
+        System.cmd(Path.expand("../../Support/bin/elixir-docs", __DIR__), ["GenServer.call/3"],
+          env: [
+            {"TM_BUNDLE_SUPPORT", Path.expand("../../Support", __DIR__)},
+            {"TM_DIRECTORY", Path.join(project, "lib")}
+          ]
+        )
+
+      assert output =~ ~s(<h1 data-title="GenServer.call/3">)
+      refute output =~ "<html>"
+    end
+  end
+
+  describe "Go to Definition" do
+    test "opens the definition in the project", %{project: project} do
+      input = "defmodule Sample.Other do\n  def a, do: Sample.hello()\nend\n"
+
+      result =
+        run_command("Go to Definition", project, "lib/other.ex", input: input, line: 2, index: 21)
+
+      assert result.status == 200
+
+      line =
+        project
+        |> Path.join("lib/sample.ex")
+        |> File.read!()
+        |> String.split("\n")
+        |> Enum.find_index(&(&1 =~ "def hello"))
+        |> Kernel.+(1)
+
+      assert result.marks == [["-l", "#{line}", Path.join(project, "lib/sample.ex")]]
+    end
+
+    test "moves to a function in the document", %{project: project} do
+      input = "defmodule Sample.Other do\n  def a, do: helper()\n\n  defp helper, do: 1\nend\n"
+
+      result =
+        run_command("Go to Definition", project, "lib/other.ex", input: input, line: 2, index: 14)
+
+      assert result.marks == [["-l", "4", Path.join(project, "lib/other.ex")]]
+    end
+
+    test "tells when there's no definition", %{project: project} do
+      input = "defmodule Sample.Other do\n  def a, do: nope()\nend\n"
+
+      assert %{status: 206, errors: "nope is not defined here or imported."} =
+               run_command("Go to Definition", project, "lib/other.ex",
+                 input: input,
+                 line: 2,
+                 index: 14
+               )
+    end
+  end
+
+  describe "Go to Test or Implementation" do
+    test "opens the test, or the tested file", %{project: project} do
+      assert run_command("Go to Test or Implementation", project, "lib/sample.ex").marks == [
+               [Path.join(project, "test/sample_test.exs")]
+             ]
+
+      assert run_command("Go to Test or Implementation", project, "test/sample_test.exs").marks ==
+               [[Path.join(project, "lib/sample.ex")]]
+    end
+
+    test "creates a missing test when asked", %{project: project} do
+      File.mkdir_p!(Path.join(project, "lib/sample"))
+      File.write!(Path.join(project, "lib/sample/thing.ex"), "defmodule Sample.Thing do\nend\n")
+      test = Path.join(project, "test/sample/thing_test.exs")
+
+      answer = fn button ->
+        fake(
+          project,
+          "dialog",
+          ~s(printf '<plist><dict><key>buttonClicked</key><integer>#{button}</integer></dict></plist>'\n)
+        )
+      end
+
+      result =
+        run_command("Go to Test or Implementation", project, "lib/sample/thing.ex",
+          env: [{"DIALOG", Path.join(answer.(1), "dialog")}]
+        )
+
+      assert %{status: 200, marks: []} = result
+      refute File.exists?(test)
+
+      result =
+        run_command("Go to Test or Implementation", project, "lib/sample/thing.ex",
+          env: [{"DIALOG", Path.join(answer.(0), "dialog")}]
+        )
+
+      assert result.marks == [[test]]
+
+      assert File.read!(test) ==
+               "defmodule Sample.ThingTest do\n  use ExUnit.Case, async: true\n\n  alias Sample.Thing\nend\n"
+    end
+  end
+
+  test "Open IEx in Terminal runs iex -S mix in the project", %{project: project} do
+    log =
+      Path.join(
+        System.tmp_dir!(),
+        "textmate-elixir-osascript-#{System.unique_integer([:positive])}"
+      )
+
+    bin = fake(project, "osascript", ~s(printf '%s\\n' "$@" > "#{log}"\n))
+
+    result =
+      run_command("Open IEx in Terminal", project, "lib/sample.ex",
+        env: [{"PATH", bin <> ":" <> System.get_env("PATH")}]
+      )
+
+    assert result.status == 200
+    script = File.read!(log)
+    assert script =~ ~s(tell application "Terminal" to do script "cd )
+    assert script =~ "iex -S mix"
+    File.rm!(log)
+  end
 end
