@@ -101,6 +101,8 @@ Grammar changes are covered by scope tests in `test/syntax`. Each file starts wi
 
 `test/editing` checks indentation, folding, and the symbol list of the files next to it. It computes them from the preferences the way TextMate does, including how it picks a preference for a scope, so every line of those files must be indented as it is, and the folds and symbols must match the `.folds` and `.symbols` snapshots. After an intended change, rewrite the snapshots with `node test/editing/test.js --update` and review the diff.
 
+`npm run test:commands` runs the commands the way TextMate does in a new Mix project, and tests the Elixir files in `Support/lib/textmate` that format their output, format documents, and set the gutter marks.
+
 `npm run test:snippets` expands every snippet with its default text, as TextMate does, and checks with Elixir that the code parses and is already formatted.
 
 The tests use the HTML grammar from [textmate/html.tmbundle](https://github.com/textmate/html.tmbundle), pinned in `test/fetch-grammars` to the revision that TextMate installs.
