@@ -11,10 +11,6 @@
 	</array>
 	<key>firstLineMatch</key>
 	<string>^#!/.*\belixir</string>
-	<key>foldingStartMarker</key>
-	<string>(after|else|catch|rescue|\-\&gt;|\{|\[|do)\s*$</string>
-	<key>foldingStopMarker</key>
-	<string>^\s*((\}|\]|after|else|catch|rescue)\s*$|end\b)</string>
 	<key>injections</key>
 	<dict>
 		<key>L:(meta.embedded.block.heex meta.tag - meta.embedded.line.heex - string.quoted.double.html - string.quoted.single.html)</key>

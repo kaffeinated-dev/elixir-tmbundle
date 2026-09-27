@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>name</key>
+	<string>Folding: Comments</string>
+	<key>scope</key>
+	<string>L:(source.elixir comment.line punctuation.definition.comment | source.elixir punctuation.whitespace.comment.leading)</string>
+	<key>settings</key>
+	<dict>
+		<key>foldingIndentedBlockStart</key>
+		<string>(?!)</string>
+	</dict>
+	<key>uuid</key>
+	<string>19B7BCA5-71FA-4AAD-8A55-0862DE99A284</string>
+</dict>
+</plist>
