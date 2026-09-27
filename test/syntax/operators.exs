@@ -1,5 +1,5 @@
 # SYNTAX TEST "source.elixir" "Operators"
-!!
+
 power = 2 ** 8
 #         ^^ keyword.operator.arithmetic.elixir
 range = 1..10//2
@@ -60,7 +60,7 @@ x in list and y not in list or z
 #                  ^ keyword.operator.other.elixir
 pinned = ^value
 #        ^ variable.other.capture.elixir punctuation.definition.variable.elixir
-!!
+
 # Clauses: arrows and guards, including the wildcard before when.
 case result do
   {:ok, value} when is_map(value) -> value
@@ -69,5 +69,5 @@ case result do
   _ when true -> nil
 # ^ comment.wildcard.elixir
 #   ^^^^ keyword.operator.elixir
-#   ^^^^ - comment
+#   ^^^^ - comment.unused.elixir
 end

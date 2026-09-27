@@ -1,5 +1,5 @@
 # SYNTAX TEST "source.elixir" "Existing highlighting that must keep working"
-!!
+
 # A comment
 # <----------- comment.line.number-sign.elixir
 ## Section

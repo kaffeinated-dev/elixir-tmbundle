@@ -1,5 +1,5 @@
 # SYNTAX TEST "source.elixir" "Sigils"
-!!
+
 # Multi-letter uppercase sigils (Elixir 1.15) are literal: no interpolation.
 query = ~SQL"select * from users where id = #{id}"
 #       ^^^^^ string.quoted.other.sigil.literal.elixir punctuation.definition.string.begin.elixir
@@ -14,7 +14,7 @@ html = ~HTML|<p>#{@name}</p>|
 view = ~LVN2[<Text/>]
 #      ^^^^^^ string.quoted.other.sigil.literal.elixir punctuation.definition.string.begin.elixir
 #                   ^ string.quoted.other.sigil.literal.elixir punctuation.definition.string.end.elixir
-!!
+
 # Lowercase sigils interpolate.
 greeting = ~s(hello #{name})
 #          ^^^ string.quoted.other.sigil.elixir punctuation.definition.string.begin.elixir
@@ -28,12 +28,12 @@ path = ~s'it"s'
 #      ^^^ string.quoted.other.sigil.elixir punctuation.definition.string.begin.elixir
 #           ^^ string.quoted.other.sigil.elixir
 #             ^ string.quoted.other.sigil.elixir punctuation.definition.string.end.elixir
-!!
+
 # An escaped terminator does not end an uppercase sigil.
 quoted = ~S"a\"b"
 #              ^ string.quoted.other.sigil.literal.elixir
 #               ^ string.quoted.other.sigil.literal.elixir punctuation.definition.string.end.elixir
-!!
+
 # Heredoc sigils with single quotes end at a line of three quotes.
 chars = ~c'''
 #       ^^^^^ string.quoted.other.sigil.heredoc.elixir punctuation.definition.string.begin.elixir
@@ -42,7 +42,7 @@ it's '' still a charlist
 '''
 # <--- string.quoted.other.sigil.heredoc.elixir punctuation.definition.string.end.elixir
 value = 1
-# <----- - string
+# <----- - string.quoted.other.sigil.heredoc.elixir string.quoted.single.elixir string.quoted.single.heredoc.elixir string.quoted.double.elixir string.quoted.double.heredoc.elixir
 raw = ~S"""
 #     ^^^^^ string.quoted.other.sigil.heredoc.literal.elixir punctuation.definition.string.begin.elixir
 Not #{interpolated}
@@ -50,7 +50,7 @@ Not #{interpolated}
 #   ^^^^^^^^^^^^^^^ - meta.embedded.line.elixir
 """
 # <--- string.quoted.other.sigil.heredoc.literal.elixir punctuation.definition.string.end.elixir
-!!
+
 # Regular expressions.
 pattern = ~r/a+#{b}/iu
 #         ^^^ string.regexp.sigil.elixir punctuation.definition.string.begin.elixir
@@ -67,7 +67,7 @@ multi = ~r"""
 # ^^ string.regexp.sigil.heredoc.elixir
 """x
 # <---- string.regexp.sigil.heredoc.elixir punctuation.definition.string.end.elixir
-!!
+
 # Operators that contain a tilde are not sigils.
 a ~> b
 # ^^ keyword.operator.custom.elixir

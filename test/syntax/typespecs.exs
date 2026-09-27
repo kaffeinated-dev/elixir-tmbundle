@@ -1,5 +1,5 @@
 # SYNTAX TEST "source.elixir" "Typespecs"
-!!
+
 defmodule MyApp.Queue do
   @type t :: %__MODULE__{name: String.t(), size: non_neg_integer() | nil}
 # ^^^^^ meta.type.elixir keyword.declaration.type.elixir
@@ -37,7 +37,7 @@ defmodule MyApp.Queue do
 #                                             ^^ keyword.operator.arrow.elixir
 #                                                         ^^ keyword.operator.range.elixir
 #                                     ^^^ keyword.operator.ellipsis.elixir
-!!
+
 # The spec'd function name, named arguments, and keywords used as names (upstream #173).
   @spec import(Path.t(), keyword()) :: :ok | {:error, reason :: term()}
 # ^^^^^ meta.type.elixir keyword.declaration.type.elixir
@@ -73,7 +73,7 @@ defmodule MyApp.Queue do
 #           ^^^^ constant.language.elixir
   @spec unquote(name)(term) :: term
 #       ^^^^^^^ keyword.control.elixir
-!!
+
 # Formatted specs and unions continue on lines indented deeper than the attribute.
   @spec start_link(
 #       ^^^^^^^^^^ entity.name.function.spec.elixir
@@ -87,7 +87,7 @@ defmodule MyApp.Queue do
 #         ^^^^^^^^^^ meta.type.elixir constant.other.symbol.elixir
           | :alert
 #         ^ meta.type.elixir keyword.operator.other.elixir
-!!
+
   def start_link(opts), do: GenServer.start_link(__MODULE__, opts)
 # ^^^ - meta.type.elixir
 #     ^^^^^^^^^^ entity.name.function.public.elixir

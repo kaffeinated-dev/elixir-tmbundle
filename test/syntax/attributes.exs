@@ -1,5 +1,5 @@
 # SYNTAX TEST "source.elixir" "Module attributes"
-!!
+
 defmodule MyApp.Server do
   @behaviour GenServer
 # ^^^^^^^^^^ support.attr.elixir
@@ -32,7 +32,7 @@ defmodule MyApp.Server do
 # ^^^^^^^^^^ support.attr.elixir
   @tag timeout: 1_000
 # ^^^^ support.attr.elixir
-!!
+
 # Other attributes are variables.
   @default_timeout 5_000
 # ^^^^^^^^^^^^^^^^ variable.other.readwrite.module.elixir
