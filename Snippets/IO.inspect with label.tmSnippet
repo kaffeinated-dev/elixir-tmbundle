@@ -3,14 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>import ${0:Module}</string>
+	<string>IO.inspect(${1:value}, label: "${2:$1}")</string>
 	<key>name</key>
-	<string>import</string>
+	<string>IO.inspect with label</string>
 	<key>scope</key>
 	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
 	<key>tabTrigger</key>
-	<string>imp</string>
+	<string>iil</string>
 	<key>uuid</key>
-	<string>C950FE7C-5277-4954-9D96-A7ACDECE9BC1</string>
+	<string>A2733EA4-67F0-4682-A8D8-8BC97E54AACD</string>
 </dict>
 </plist>

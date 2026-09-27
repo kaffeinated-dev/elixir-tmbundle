@@ -3,14 +3,19 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>import ${0:Module}</string>
+	<string>try do
+	$1
+rescue
+	${2:e in RuntimeError} -&gt;
+		$0
+end</string>
 	<key>name</key>
-	<string>import</string>
+	<string>try … rescue</string>
 	<key>scope</key>
 	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
 	<key>tabTrigger</key>
-	<string>imp</string>
+	<string>try</string>
 	<key>uuid</key>
-	<string>C950FE7C-5277-4954-9D96-A7ACDECE9BC1</string>
+	<string>26F95D41-0F16-409E-B15F-439612B4920A</string>
 </dict>
 </plist>

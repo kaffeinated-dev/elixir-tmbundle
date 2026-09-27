@@ -3,14 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>import ${0:Module}</string>
+	<string>@impl true
+def handle_call(${1:request}, _from, ${2:state}) do
+	{:reply, ${3::ok}, $2}
+end</string>
 	<key>name</key>
-	<string>import</string>
+	<string>handle_call</string>
 	<key>scope</key>
 	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
 	<key>tabTrigger</key>
-	<string>imp</string>
+	<string>hcall</string>
 	<key>uuid</key>
-	<string>C950FE7C-5277-4954-9D96-A7ACDECE9BC1</string>
+	<string>BB81B6EB-AA34-421A-A733-F3F5A706BE84</string>
 </dict>
 </plist>

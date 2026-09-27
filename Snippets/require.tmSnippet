@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>require $0</string>
+	<string>require ${0:Module}</string>
 	<key>name</key>
 	<string>require</string>
 	<key>scope</key>
-	<string>source.elixir</string>
+	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
 	<key>tabTrigger</key>
 	<string>req</string>
 	<key>uuid</key>

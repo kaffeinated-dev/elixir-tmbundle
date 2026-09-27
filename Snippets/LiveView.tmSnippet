@@ -3,14 +3,26 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>import ${0:Module}</string>
+	<string>use ${1:MyAppWeb}, :live_view
+
+@impl true
+def mount(_params, _session, socket) do
+	{:ok, socket}
+end
+
+@impl true
+def render(assigns) do
+	~H"""
+	$0
+	"""
+end</string>
 	<key>name</key>
-	<string>import</string>
+	<string>LiveView</string>
 	<key>scope</key>
 	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
 	<key>tabTrigger</key>
-	<string>imp</string>
+	<string>lv</string>
 	<key>uuid</key>
-	<string>C950FE7C-5277-4954-9D96-A7ACDECE9BC1</string>
+	<string>27CC610D-4355-427D-9C2E-66BC54451AFE</string>
 </dict>
 </plist>

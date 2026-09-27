@@ -3,14 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>import ${0:Module}</string>
+	<string>@impl true
+def handle_cast(${1:request}, ${2:state}) do
+	{:noreply, $2}
+end</string>
 	<key>name</key>
-	<string>import</string>
+	<string>handle_cast</string>
 	<key>scope</key>
 	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
 	<key>tabTrigger</key>
-	<string>imp</string>
+	<string>hcast</string>
 	<key>uuid</key>
-	<string>C950FE7C-5277-4954-9D96-A7ACDECE9BC1</string>
+	<string>412A4728-6C46-4AE2-9ACD-3EDDF74339BE</string>
 </dict>
 </plist>

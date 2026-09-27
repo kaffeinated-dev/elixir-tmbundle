@@ -3,14 +3,16 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>import ${0:Module}</string>
+	<string>assert_raise ${1:ArgumentError}, fn -&gt;
+	$0
+end</string>
 	<key>name</key>
-	<string>import</string>
+	<string>assert_raise</string>
 	<key>scope</key>
 	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
 	<key>tabTrigger</key>
-	<string>imp</string>
+	<string>ar</string>
 	<key>uuid</key>
-	<string>C950FE7C-5277-4954-9D96-A7ACDECE9BC1</string>
+	<string>894A9C9C-DD60-4F1E-A3E5-FC87DC8A8215</string>
 </dict>
 </plist>

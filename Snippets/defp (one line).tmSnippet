@@ -3,14 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>def $1, do: $0</string>
+	<string>defp ${1:name}${2:(${3:args})}, do: ${0:value}</string>
 	<key>name</key>
-	<string>def (one line)</string>
+	<string>defp (one line)</string>
 	<key>scope</key>
-	<string>source.elixir</string>
+	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
 	<key>tabTrigger</key>
-	<string>df</string>
+	<string>dfp</string>
 	<key>uuid</key>
-	<string>70D885A3-B612-4B5D-842E-D94474C8C8CA</string>
+	<string>F4240697-451F-4896-8DAE-FDED4FE8DF68</string>
 </dict>
 </plist>

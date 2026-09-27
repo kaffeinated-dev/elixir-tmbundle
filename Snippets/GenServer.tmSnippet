@@ -3,14 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>import ${0:Module}</string>
+	<string>use GenServer
+
+def start_link(${1:init_arg}) do
+	GenServer.start_link(__MODULE__, $1, name: __MODULE__)
+end
+
+@impl true
+def init(${2:state}) do
+	{:ok, $2}
+end</string>
 	<key>name</key>
-	<string>import</string>
+	<string>GenServer</string>
 	<key>scope</key>
 	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
 	<key>tabTrigger</key>
-	<string>imp</string>
+	<string>genserver</string>
 	<key>uuid</key>
-	<string>C950FE7C-5277-4954-9D96-A7ACDECE9BC1</string>
+	<string>4B2F782F-ACB8-41FD-95D3-9AA9A50D8321</string>
 </dict>
 </plist>

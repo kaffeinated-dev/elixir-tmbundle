@@ -5,13 +5,12 @@
 	<key>content</key>
 	<string>setup do
 	$0
-
 	:ok
 end</string>
 	<key>name</key>
 	<string>setup</string>
 	<key>scope</key>
-	<string>source.elixir</string>
+	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
 	<key>tabTrigger</key>
 	<string>setup</string>
 	<key>uuid</key>

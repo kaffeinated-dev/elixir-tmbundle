@@ -3,13 +3,15 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>defmacro $1 do
-	$0
+	<string>defmacro ${1:name}${2:(${3:args})} do
+	quote do
+		$0
+	end
 end</string>
 	<key>name</key>
 	<string>defmacro</string>
 	<key>scope</key>
-	<string>source.elixir</string>
+	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
 	<key>tabTrigger</key>
 	<string>defm</string>
 	<key>uuid</key>

@@ -3,14 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>case $1 do
-	$2 -&gt;
+	<string>case ${1:expression} do
+	${2:pattern} -&gt;
 		$0
 end</string>
 	<key>name</key>
 	<string>case</string>
 	<key>scope</key>
-	<string>source.elixir</string>
+	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
 	<key>tabTrigger</key>
 	<string>case</string>
 	<key>uuid</key>

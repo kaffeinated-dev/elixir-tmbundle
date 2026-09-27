@@ -3,14 +3,16 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>import ${0:Module}</string>
+	<string>~H"""
+$0
+"""</string>
 	<key>name</key>
-	<string>import</string>
+	<string>~H template</string>
 	<key>scope</key>
 	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
 	<key>tabTrigger</key>
-	<string>imp</string>
+	<string>~H</string>
 	<key>uuid</key>
-	<string>C950FE7C-5277-4954-9D96-A7ACDECE9BC1</string>
+	<string>F0A14BCE-20B3-4818-A2CE-0FE7483854B6</string>
 </dict>
 </plist>

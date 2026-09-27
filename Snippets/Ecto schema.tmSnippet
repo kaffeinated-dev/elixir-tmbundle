@@ -3,14 +3,18 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>import ${0:Module}</string>
+	<string>schema "${1:table}" do
+	field :${2:name}, :${3:string}$0
+
+	timestamps(type: :utc_datetime)
+end</string>
 	<key>name</key>
-	<string>import</string>
+	<string>Ecto schema</string>
 	<key>scope</key>
 	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
 	<key>tabTrigger</key>
-	<string>imp</string>
+	<string>schema</string>
 	<key>uuid</key>
-	<string>C950FE7C-5277-4954-9D96-A7ACDECE9BC1</string>
+	<string>09591C1C-5300-4967-AC4C-3DBBBE64B50B</string>
 </dict>
 </plist>

@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>fn ${1:args}${1/(.+)/(?1: )/}-&gt; $2 end$0</string>
+	<string>fn ${1:args} -&gt; ${0:body} end</string>
 	<key>name</key>
 	<string>fn</string>
 	<key>scope</key>
-	<string>source.elixir</string>
+	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
 	<key>tabTrigger</key>
 	<string>fn</string>
 	<key>uuid</key>

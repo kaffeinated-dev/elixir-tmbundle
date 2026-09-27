@@ -3,14 +3,27 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>import ${0:Module}</string>
+	<string>use Supervisor
+
+def start_link(${1:init_arg}) do
+	Supervisor.start_link(__MODULE__, $1, name: __MODULE__)
+end
+
+@impl true
+def init(_init_arg) do
+	children = [
+		${0:{Worker, []\}}
+	]
+
+	Supervisor.init(children, strategy: :one_for_one)
+end</string>
 	<key>name</key>
-	<string>import</string>
+	<string>Supervisor</string>
 	<key>scope</key>
 	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
 	<key>tabTrigger</key>
-	<string>imp</string>
+	<string>supervisor</string>
 	<key>uuid</key>
-	<string>C950FE7C-5277-4954-9D96-A7ACDECE9BC1</string>
+	<string>A7C363E5-D76E-48BE-AA76-31ED2BEA8ECB</string>
 </dict>
 </plist>

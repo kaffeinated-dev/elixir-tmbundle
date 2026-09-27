@@ -3,14 +3,18 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>import ${0:Module}</string>
+	<string>def changeset(${1:struct}, attrs) do
+	$1
+	|&gt; cast(attrs, [${2::name}])
+	|&gt; validate_required([$2])$0
+end</string>
 	<key>name</key>
-	<string>import</string>
+	<string>Ecto changeset</string>
 	<key>scope</key>
 	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
 	<key>tabTrigger</key>
-	<string>imp</string>
+	<string>changeset</string>
 	<key>uuid</key>
-	<string>C950FE7C-5277-4954-9D96-A7ACDECE9BC1</string>
+	<string>5D402B6F-6ACD-4483-B752-10A1B31421F1</string>
 </dict>
 </plist>

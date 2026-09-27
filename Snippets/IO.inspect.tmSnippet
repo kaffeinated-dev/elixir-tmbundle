@@ -3,14 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>%${1:Struct}{$2}$0</string>
+	<string>IO.inspect(${0:value})</string>
 	<key>name</key>
-	<string>map/struct</string>
+	<string>IO.inspect</string>
 	<key>scope</key>
-	<string>source.elixir</string>
+	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
 	<key>tabTrigger</key>
-	<string>%</string>
+	<string>ii</string>
 	<key>uuid</key>
-	<string>9A27D450-377A-498B-8A76-CF6F757EA82C</string>
+	<string>93B56CC9-F0E0-40ED-8029-D435D2261EC6</string>
 </dict>
 </plist>

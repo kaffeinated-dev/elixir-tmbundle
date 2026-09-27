@@ -3,14 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>import ${0:Module}</string>
+	<string>@impl true
+def handle_event("${1:event}", ${2:_params}, socket) do
+	{:noreply, ${0:socket}}
+end</string>
 	<key>name</key>
-	<string>import</string>
+	<string>handle_event</string>
 	<key>scope</key>
 	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
 	<key>tabTrigger</key>
-	<string>imp</string>
+	<string>hevent</string>
 	<key>uuid</key>
-	<string>C950FE7C-5277-4954-9D96-A7ACDECE9BC1</string>
+	<string>48106D59-EAAE-45E0-B29A-049FE4E2D639</string>
 </dict>
 </plist>

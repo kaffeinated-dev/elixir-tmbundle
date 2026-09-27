@@ -3,14 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>import ${0:Module}</string>
+	<string>@impl true
+def mount(${1:_params}, ${2:_session}, socket) do
+	{:ok, ${0:socket}}
+end</string>
 	<key>name</key>
-	<string>import</string>
+	<string>mount</string>
 	<key>scope</key>
 	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
 	<key>tabTrigger</key>
-	<string>imp</string>
+	<string>mount</string>
 	<key>uuid</key>
-	<string>C950FE7C-5277-4954-9D96-A7ACDECE9BC1</string>
+	<string>4BB38EB5-49A9-4A6D-A91B-BCE61720E267</string>
 </dict>
 </plist>

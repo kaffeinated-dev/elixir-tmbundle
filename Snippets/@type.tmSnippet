@@ -3,16 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>@doc """
-$0
-"""</string>
+	<string>@type ${1:t} :: ${0:term()}</string>
 	<key>name</key>
-	<string>doc</string>
+	<string>@type</string>
 	<key>scope</key>
-	<string>source.elixir</string>
+	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
 	<key>tabTrigger</key>
-	<string>doc</string>
+	<string>type</string>
 	<key>uuid</key>
-	<string>79481DC6-D14E-4FFD-B4AC-1680139047B3</string>
+	<string>16D22A36-3CB8-4B58-A36D-24C054597D28</string>
 </dict>
 </plist>

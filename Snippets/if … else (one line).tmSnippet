@@ -3,14 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>${1:key} =&gt; ${2:value}$0</string>
+	<string>if ${1:condition}, do: ${2:value}, else: ${0:other}</string>
 	<key>name</key>
-	<string>key =&gt; value</string>
+	<string>if … else (one line)</string>
 	<key>scope</key>
-	<string>source.elixir</string>
+	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
 	<key>tabTrigger</key>
-	<string>::</string>
+	<string>ife:</string>
 	<key>uuid</key>
-	<string>AB492DEE-2168-40EE-B2F9-B293C18C6250</string>
+	<string>23403EDF-D1B5-444D-B53B-6F4BD6575D13</string>
 </dict>
 </plist>

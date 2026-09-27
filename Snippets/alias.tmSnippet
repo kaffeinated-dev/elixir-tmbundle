@@ -3,16 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>@moduledoc """
-$0
-"""</string>
+	<string>alias ${0:Module}</string>
 	<key>name</key>
-	<string>moduledoc</string>
+	<string>alias</string>
 	<key>scope</key>
-	<string>source.elixir</string>
+	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
 	<key>tabTrigger</key>
-	<string>mdoc</string>
+	<string>al</string>
 	<key>uuid</key>
-	<string>F0413B1A-CDD9-4425-BA63-09BE5CF37CBC</string>
+	<string>DDCB579A-C6D7-49FA-B3A5-706B61461A88</string>
 </dict>
 </plist>

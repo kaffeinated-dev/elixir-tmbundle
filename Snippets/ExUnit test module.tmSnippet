@@ -3,14 +3,16 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>IO.inspect($0)</string>
+	<string>use ExUnit.Case, async: true
+
+$0</string>
 	<key>name</key>
-	<string>IO.inspect</string>
+	<string>ExUnit test module</string>
 	<key>scope</key>
-	<string>source.elixir</string>
+	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
 	<key>tabTrigger</key>
-	<string>ii</string>
+	<string>exu</string>
 	<key>uuid</key>
-	<string>93B56CC9-F0E0-40ED-8029-D435D2261EC6</string>
+	<string>0B484BCF-F8BF-4D2D-AC62-F10D4349E091</string>
 </dict>
 </plist>
