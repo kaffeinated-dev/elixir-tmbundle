@@ -11,7 +11,7 @@
 	<key>name</key>
 	<string>Embedded Code — #{…}</string>
 	<key>scope</key>
-	<string>source.elixir &amp; B:(string.quoted.single.heredoc.elixir|string.quoted.single.elixir|string.quoted.double.heredoc.elixir|string.quoted.double.elixir|string.quoted.other.sigil.heredoc.elixir|string.quoted.other.sigil.elixir) - string source</string>
+	<string>source.elixir &amp; B:(string.quoted.single.heredoc.elixir | string.quoted.single.elixir | string.quoted.double.heredoc.elixir | string.quoted.double.elixir | string.quoted.other.sigil.heredoc.elixir | string.quoted.other.sigil.elixir | string.regexp.sigil.heredoc.elixir | string.regexp.sigil.elixir | constant.other.symbol.double-quoted.elixir | constant.other.symbol.single-quoted.elixir | constant.other.keywords.elixir) - string source - constant source</string>
 	<key>uuid</key>
 	<string>B998866C-7FFE-4826-A924-72F0C3942F4A</string>
 </dict>

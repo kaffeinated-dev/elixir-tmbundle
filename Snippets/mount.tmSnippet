@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>@impl true
+def mount(${1:_params}, ${2:_session}, socket) do
+	{:ok, ${0:socket}}
+end</string>
+	<key>name</key>
+	<string>mount</string>
+	<key>scope</key>
+	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
+	<key>tabTrigger</key>
+	<string>mount</string>
+	<key>uuid</key>
+	<string>4BB38EB5-49A9-4A6D-A91B-BCE61720E267</string>
+</dict>
+</plist>

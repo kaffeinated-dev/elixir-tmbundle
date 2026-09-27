@@ -4,13 +4,13 @@
 <dict>
 	<key>content</key>
 	<string>receive do
-	${1:{${2::${3:message_type}}, ${4:value}\}} -&gt;
-		${0:# code}
+	${1:{:${2:message}, ${3:value}\}} -&gt;
+		$0
 end</string>
 	<key>name</key>
 	<string>receive</string>
 	<key>scope</key>
-	<string>source.elixir</string>
+	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
 	<key>tabTrigger</key>
 	<string>rec</string>
 	<key>uuid</key>

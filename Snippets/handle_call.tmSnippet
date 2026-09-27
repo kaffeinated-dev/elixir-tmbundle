@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>@impl true
+def handle_call(${1:request}, _from, ${2:state}) do
+	{:reply, ${3::ok}, $2}
+end</string>
+	<key>name</key>
+	<string>handle_call</string>
+	<key>scope</key>
+	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
+	<key>tabTrigger</key>
+	<string>hcall</string>
+	<key>uuid</key>
+	<string>BB81B6EB-AA34-421A-A733-F3F5A706BE84</string>
+</dict>
+</plist>

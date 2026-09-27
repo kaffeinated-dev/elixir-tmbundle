@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>@impl true
+def handle_info(${1:message}, ${2:state}) do
+	{:noreply, $2}
+end</string>
+	<key>name</key>
+	<string>handle_info</string>
+	<key>scope</key>
+	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
+	<key>tabTrigger</key>
+	<string>hinfo</string>
+	<key>uuid</key>
+	<string>0F0DB153-A804-41DF-97FC-19B22E8F2E23</string>
+</dict>
+</plist>

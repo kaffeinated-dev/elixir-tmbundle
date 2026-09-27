@@ -2,15 +2,15 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-  <key>content</key>
-  <string>defdelegate $1 to: $0</string>
-  <key>name</key>
-  <string>defdelegate</string>
-  <key>scope</key>
-  <string>source.elixir</string>
-  <key>tabTrigger</key>
-  <string>defd</string>
-  <key>uuid</key>
-  <string>C716B59F-52CC-4FF5-A7A6-3B641BFA8BAE</string>
+	<key>content</key>
+	<string>defdelegate ${1:name}(${2:args}), to: ${0:Module}</string>
+	<key>name</key>
+	<string>defdelegate</string>
+	<key>scope</key>
+	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
+	<key>tabTrigger</key>
+	<string>defd</string>
+	<key>uuid</key>
+	<string>C716B59F-52CC-4FF5-A7A6-3B641BFA8BAE</string>
 </dict>
 </plist>

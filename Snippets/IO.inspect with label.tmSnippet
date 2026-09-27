@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>IO.inspect(${1:value}, label: "${2:$1}")</string>
+	<key>name</key>
+	<string>IO.inspect with label</string>
+	<key>scope</key>
+	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
+	<key>tabTrigger</key>
+	<string>iil</string>
+	<key>uuid</key>
+	<string>A2733EA4-67F0-4682-A8D8-8BC97E54AACD</string>
+</dict>
+</plist>

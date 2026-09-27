@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>import $0</string>
+	<string>import ${0:Module}</string>
 	<key>name</key>
 	<string>import</string>
 	<key>scope</key>
-	<string>source.elixir</string>
+	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
 	<key>tabTrigger</key>
 	<string>imp</string>
 	<key>uuid</key>

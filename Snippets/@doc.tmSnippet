@@ -3,14 +3,16 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>unless $1, do: $0</string>
+	<string>@doc """
+$0
+"""</string>
 	<key>name</key>
-	<string>unless (one line)</string>
+	<string>@doc</string>
 	<key>scope</key>
-	<string>source.elixir</string>
+	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
 	<key>tabTrigger</key>
-	<string>unless:</string>
+	<string>doc</string>
 	<key>uuid</key>
-	<string>8478937E-E333-4CA3-8F17-52A781A89263</string>
+	<string>79481DC6-D14E-4FFD-B4AC-1680139047B3</string>
 </dict>
 </plist>

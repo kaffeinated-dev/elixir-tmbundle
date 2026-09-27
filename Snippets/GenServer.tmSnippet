@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>use GenServer
+
+def start_link(${1:init_arg}) do
+	GenServer.start_link(__MODULE__, $1, name: __MODULE__)
+end
+
+@impl true
+def init(${2:state}) do
+	{:ok, $2}
+end</string>
+	<key>name</key>
+	<string>GenServer</string>
+	<key>scope</key>
+	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
+	<key>tabTrigger</key>
+	<string>genserver</string>
+	<key>uuid</key>
+	<string>4B2F782F-ACB8-41FD-95D3-9AA9A50D8321</string>
+</dict>
+</plist>

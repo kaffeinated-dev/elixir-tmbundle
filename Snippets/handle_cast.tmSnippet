@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>@impl true
+def handle_cast(${1:request}, ${2:state}) do
+	{:noreply, $2}
+end</string>
+	<key>name</key>
+	<string>handle_cast</string>
+	<key>scope</key>
+	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
+	<key>tabTrigger</key>
+	<string>hcast</string>
+	<key>uuid</key>
+	<string>412A4728-6C46-4AE2-9ACD-3EDDF74339BE</string>
+</dict>
+</plist>

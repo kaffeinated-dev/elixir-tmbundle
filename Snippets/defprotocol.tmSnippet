@@ -3,13 +3,13 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>defprotocol $1 do
-	$0
+	<string>defprotocol ${1:Protocol} do
+	def ${2:name}(${3:data})$0
 end</string>
 	<key>name</key>
 	<string>defprotocol</string>
 	<key>scope</key>
-	<string>source.elixir</string>
+	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
 	<key>tabTrigger</key>
 	<string>defpro</string>
 	<key>uuid</key>

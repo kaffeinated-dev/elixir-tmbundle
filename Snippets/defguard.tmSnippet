@@ -3,16 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>unless $1 do
-	$0
-end</string>
+	<string>defguard ${1:is_something}(${2:value}) when ${0:is_integer(value)}</string>
 	<key>name</key>
-	<string>unless</string>
+	<string>defguard</string>
 	<key>scope</key>
-	<string>source.elixir</string>
+	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
 	<key>tabTrigger</key>
-	<string>unless</string>
+	<string>defg</string>
 	<key>uuid</key>
-	<string>0AE60466-9C59-4FCD-97B3-3BB40A61BFC4</string>
+	<string>A3A70945-AFF3-4F2B-9950-4E85855745AE</string>
 </dict>
 </plist>

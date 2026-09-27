@@ -3,18 +3,19 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>unless $1 do
-	$2
+	<string>with {:ok, ${1:value}} &lt;- ${2:call()} do
+	$3
 else
-	$0
+	${4:{:error, reason\}} -&gt;
+		$0
 end</string>
 	<key>name</key>
-	<string>unless else</string>
+	<string>with … else</string>
 	<key>scope</key>
-	<string>source.elixir</string>
+	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
 	<key>tabTrigger</key>
-	<string>unlesse</string>
+	<string>withe</string>
 	<key>uuid</key>
-	<string>79F7CEF9-C157-4366-AF02-4818F7DA817C</string>
+	<string>C3268D8A-F2AC-4247-A895-DF916AD015DA</string>
 </dict>
 </plist>

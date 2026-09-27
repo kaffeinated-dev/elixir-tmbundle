@@ -3,14 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>unless $1, do: $2, else: $0</string>
+	<string>dbg(${0:value})</string>
 	<key>name</key>
-	<string>unless else (one line)</string>
+	<string>dbg</string>
 	<key>scope</key>
-	<string>source.elixir</string>
+	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
 	<key>tabTrigger</key>
-	<string>unlesse:</string>
+	<string>dbg</string>
 	<key>uuid</key>
-	<string>A7A6CCF0-E8E8-4CB5-B379-93B24736FE02</string>
+	<string>42C813F5-3815-4474-BAAC-C4761F3A5069</string>
 </dict>
 </plist>

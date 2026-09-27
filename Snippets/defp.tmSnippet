@@ -3,13 +3,13 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>defp $1 do
+	<string>defp ${1:name}${2:(${3:args})} do
 	$0
 end</string>
 	<key>name</key>
 	<string>defp</string>
 	<key>scope</key>
-	<string>source.elixir</string>
+	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
 	<key>tabTrigger</key>
 	<string>defp</string>
 	<key>uuid</key>

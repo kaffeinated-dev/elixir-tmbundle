@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>schema "${1:table}" do
+	field :${2:name}, :${3:string}$0
+
+	timestamps(type: :utc_datetime)
+end</string>
+	<key>name</key>
+	<string>Ecto schema</string>
+	<key>scope</key>
+	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
+	<key>tabTrigger</key>
+	<string>schema</string>
+	<key>uuid</key>
+	<string>09591C1C-5300-4967-AC4C-3DBBBE64B50B</string>
+</dict>
+</plist>

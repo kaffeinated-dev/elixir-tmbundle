@@ -3,13 +3,13 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>defmodule ${1:${TM_FILENAME/(?:\A|_)([A-Za-z0-9]+)(?:\.[a-z]+)*/(?2::\u$1)/g}} do
+	<string>defmodule ${1:${TM_FILEPATH/^.*?\/(?:lib|test)\/([a-z0-9])|^.*\/([a-z0-9])|\/(?:controllers|live|components|channels)(?=\/)|(\/)([a-z0-9])|_([a-z0-9])|\.exs?$/(?1:\u$1)(?2:\u$2)(?3:.\u$4)(?5:\u$5)/g}} do
 	$0
 end</string>
 	<key>name</key>
 	<string>defmodule</string>
 	<key>scope</key>
-	<string>source.elixir</string>
+	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
 	<key>tabTrigger</key>
 	<string>defmod</string>
 	<key>uuid</key>

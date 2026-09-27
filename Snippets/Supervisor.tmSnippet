@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>use Supervisor
+
+def start_link(${1:init_arg}) do
+	Supervisor.start_link(__MODULE__, $1, name: __MODULE__)
+end
+
+@impl true
+def init(_init_arg) do
+	children = [
+		${0:{Worker, []\}}
+	]
+
+	Supervisor.init(children, strategy: :one_for_one)
+end</string>
+	<key>name</key>
+	<string>Supervisor</string>
+	<key>scope</key>
+	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
+	<key>tabTrigger</key>
+	<string>supervisor</string>
+	<key>uuid</key>
+	<string>A7C363E5-D76E-48BE-AA76-31ED2BEA8ECB</string>
+</dict>
+</plist>

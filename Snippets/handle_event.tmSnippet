@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>@impl true
+def handle_event("${1:event}", ${2:_params}, socket) do
+	{:noreply, ${0:socket}}
+end</string>
+	<key>name</key>
+	<string>handle_event</string>
+	<key>scope</key>
+	<string>source.elixir - string - comment - (text.html - text.html source.elixir)</string>
+	<key>tabTrigger</key>
+	<string>hevent</string>
+	<key>uuid</key>
+	<string>48106D59-EAAE-45E0-B29A-049FE4E2D639</string>
+</dict>
+</plist>
