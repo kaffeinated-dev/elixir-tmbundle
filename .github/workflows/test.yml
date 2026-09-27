@@ -24,3 +24,9 @@ jobs:
       run: npm ci
     - name: Test grammar scopes
       run: npm test
+    - uses: erlef/setup-beam@v1
+      with:
+        otp-version: '28'
+        elixir-version: '1.20'
+    - name: Test that snippets expand to formatted Elixir
+      run: npm run test:snippets
