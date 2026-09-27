@@ -1,5 +1,5 @@
 # SYNTAX TEST "source.elixir" "Modules and functions"
-!!
+
 defmodule MyApp.Accounts.User do
 # <--------- keyword.control.module.elixir
 #         ^^^^^^^^^^^^^^^^^^^ entity.name.type.module.elixir
@@ -9,21 +9,21 @@ defmodule MyApp.Accounts.User do
 #      ^^^^^^^ entity.name.function.public.elixir
   defnp helper(t), do: t
 #       ^^^^^^ entity.name.function.private.elixir
-!!
+
 # A head without a body ends at the end of the line.
   defp body_less(a, b \\ nil)
 #      ^^^^^^^^^ meta.function.private.elixir entity.name.function.private.elixir
 #                     ^^ keyword.operator.default.elixir
   def uses_length(list), do: length(list)
 # ^^^ - meta.function.private.elixir
-#                            ^^^^^^ - meta.function
+#                            ^^^^^^ - meta.function.public.elixir meta.function.private.elixir
 #                            ^^^^^^ entity.name.function.elixir
   defdelegate size(map), to: Kernel, as: :map_size
 #             ^^^^ entity.name.function.public.elixir
 #                        ^^^ constant.other.keywords.elixir
   def after_delegate(x), do: x
-#                            ^ - meta.function
-!!
+#                            ^ - meta.function.public.elixir meta.function.private.elixir
+
 # Parameters can span lines, including calls inside patterns.
   def handle_event("save", %{
 #     ^^^^^^^^^^^^ entity.name.function.public.elixir
@@ -34,12 +34,12 @@ defmodule MyApp.Accounts.User do
     {:noreply, socket}
 #    ^^^^^^^^ - meta.function.public.elixir
   end
-!!
+
   def long_function_name(argument),
 #     ^^^^^^^^^^^^^^^^^^ entity.name.function.public.elixir
     do: argument
 #   ^^^ constant.other.keywords.elixir
-!!
+
   defguard is_even(x) when is_integer(x) and rem(x, 2) == 0
 #          ^^^^^^^ entity.name.function.public.elixir
 #                     ^^^^ keyword.operator.elixir
@@ -54,7 +54,7 @@ defmodule MyApp.Accounts.User do
   def ok?, do: true
 #     ^^^ entity.name.function.public.elixir
 end
-!!
+
 defprotocol Size do
 #           ^^^^ entity.name.type.protocol.elixir
   def size(data)
@@ -65,7 +65,7 @@ defimpl Size, for: Map do
 #                  ^^^ entity.name.type.protocol.elixir
   def size(map), do: map_size(map)
 end
-!!
+
 # Remote calls, including one-letter module names.
 A.b(1)
 # <- entity.name.type.class.elixir

@@ -1,0 +1,9 @@
+## SYNTAX TEST "text.html.elixir" "HTML (EEx)"
+
+<a href="<%= path("x", to: "y") %>">Link</a>
+##       ^^^ meta.attribute.href.html string.quoted.double.html meta.embedded.line.elixir punctuation.section.embedded.begin.elixir
+##                ^^^ meta.embedded.line.elixir source.elixir string.quoted.double.elixir
+##                     ^^^ meta.embedded.line.elixir source.elixir constant.other.keywords.elixir
+##                                  ^^^^ - meta.embedded.line.elixir
+<p><%= @title %></p>
+##     ^^^^^^ meta.embedded.line.elixir source.elixir variable.other.readwrite.module.elixir

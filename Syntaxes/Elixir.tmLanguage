@@ -15,6 +15,37 @@
 	<string>(after|else|catch|rescue|\-\&gt;|\{|\[|do)\s*$</string>
 	<key>foldingStopMarker</key>
 	<string>^\s*((\}|\]|after|else|catch|rescue)\s*$|end\b)</string>
+	<key>injections</key>
+	<dict>
+		<key>L:(meta.embedded.block.heex meta.tag - meta.embedded.line.heex - string.quoted.double.html - string.quoted.single.html)</key>
+		<dict>
+			<key>comment</key>
+			<string>{expressions} and :if/:for in HTML tags of ~H templates.</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>text.html.heex#expression</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>text.html.heex#special_attributes</string>
+				</dict>
+			</array>
+		</dict>
+		<key>R:meta.embedded.block.eex meta.tag meta.attribute string.quoted</key>
+		<dict>
+			<key>comment</key>
+			<string>EEx tags in attribute values of ~L and ~E templates.</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>text.elixir</string>
+				</dict>
+			</array>
+		</dict>
+	</dict>
 	<key>keyEquivalent</key>
 	<string>^~E</string>
 	<key>name</key>
@@ -300,43 +331,331 @@
 				</dict>
 				<dict>
 					<key>begin</key>
-					<string>\s*~L"""</string>
-					<key>comment</key>
-					<string>Leex Sigil</string>
+					<string>(?:~H|~LVN)(\"\"\"|''')</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.string.begin.elixir</string>
+						</dict>
+					</dict>
+					<key>contentName</key>
+					<string>text.html.heex</string>
 					<key>end</key>
-					<string>\s*"""</string>
+					<string>^\s*\1[a-zA-Z0-9]*</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.string.end.elixir</string>
+						</dict>
+					</dict>
 					<key>name</key>
-					<string>sigil.leex</string>
+					<string>meta.embedded.block.heex</string>
 					<key>patterns</key>
 					<array>
 						<dict>
 							<key>include</key>
-							<string>text.elixir</string>
-						</dict>
-						<dict>
-							<key>include</key>
-							<string>text.html.basic</string>
+							<string>text.html.heex</string>
 						</dict>
 					</array>
 				</dict>
 				<dict>
 					<key>begin</key>
-					<string>\s*~H"""</string>
-					<key>comment</key>
-					<string>HEEx Sigil</string>
+					<string>(?:~H|~LVN)([\"'|/])(?=(?:(?!\1)[^\\])*\1)</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.string.begin.elixir</string>
+						</dict>
+					</dict>
+					<key>contentName</key>
+					<string>text.html.heex</string>
 					<key>end</key>
-					<string>\s*"""</string>
+					<string>\1[a-zA-Z0-9]*</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.string.end.elixir</string>
+						</dict>
+					</dict>
 					<key>name</key>
-					<string>sigil.heex</string>
+					<string>meta.embedded.block.heex</string>
 					<key>patterns</key>
 					<array>
 						<dict>
 							<key>include</key>
-							<string>text.elixir</string>
+							<string>text.html.heex</string>
 						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>(?:~H|~LVN)\((?=[^\)\\]*\))</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.string.begin.elixir</string>
+						</dict>
+					</dict>
+					<key>contentName</key>
+					<string>text.html.heex</string>
+					<key>end</key>
+					<string>\)[a-zA-Z0-9]*</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.string.end.elixir</string>
+						</dict>
+					</dict>
+					<key>name</key>
+					<string>meta.embedded.block.heex</string>
+					<key>patterns</key>
+					<array>
 						<dict>
 							<key>include</key>
-							<string>text.html.basic</string>
+							<string>text.html.heex</string>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>(?:~H|~LVN)\[(?=[^\]\\]*\])</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.string.begin.elixir</string>
+						</dict>
+					</dict>
+					<key>contentName</key>
+					<string>text.html.heex</string>
+					<key>end</key>
+					<string>\][a-zA-Z0-9]*</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.string.end.elixir</string>
+						</dict>
+					</dict>
+					<key>name</key>
+					<string>meta.embedded.block.heex</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>text.html.heex</string>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>(?:~H|~LVN)\{(?=[^\}\\]*\})</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.string.begin.elixir</string>
+						</dict>
+					</dict>
+					<key>contentName</key>
+					<string>text.html.heex</string>
+					<key>end</key>
+					<string>\}[a-zA-Z0-9]*</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.string.end.elixir</string>
+						</dict>
+					</dict>
+					<key>name</key>
+					<string>meta.embedded.block.heex</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>text.html.heex</string>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>(?:~L|~E)(\"\"\"|''')</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.string.begin.elixir</string>
+						</dict>
+					</dict>
+					<key>contentName</key>
+					<string>text.html.elixir</string>
+					<key>end</key>
+					<string>^\s*\1[a-zA-Z0-9]*</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.string.end.elixir</string>
+						</dict>
+					</dict>
+					<key>name</key>
+					<string>meta.embedded.block.eex</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>text.html.elixir</string>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>(?:~L|~E)([\"'|/])(?=(?:(?!\1)[^\\])*\1)</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.string.begin.elixir</string>
+						</dict>
+					</dict>
+					<key>contentName</key>
+					<string>text.html.elixir</string>
+					<key>end</key>
+					<string>\1[a-zA-Z0-9]*</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.string.end.elixir</string>
+						</dict>
+					</dict>
+					<key>name</key>
+					<string>meta.embedded.block.eex</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>text.html.elixir</string>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>(?:~L|~E)\((?=[^\)\\]*\))</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.string.begin.elixir</string>
+						</dict>
+					</dict>
+					<key>contentName</key>
+					<string>text.html.elixir</string>
+					<key>end</key>
+					<string>\)[a-zA-Z0-9]*</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.string.end.elixir</string>
+						</dict>
+					</dict>
+					<key>name</key>
+					<string>meta.embedded.block.eex</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>text.html.elixir</string>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>(?:~L|~E)\[(?=[^\]\\]*\])</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.string.begin.elixir</string>
+						</dict>
+					</dict>
+					<key>contentName</key>
+					<string>text.html.elixir</string>
+					<key>end</key>
+					<string>\][a-zA-Z0-9]*</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.string.end.elixir</string>
+						</dict>
+					</dict>
+					<key>name</key>
+					<string>meta.embedded.block.eex</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>text.html.elixir</string>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>(?:~L|~E)\{(?=[^\}\\]*\})</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.string.begin.elixir</string>
+						</dict>
+					</dict>
+					<key>contentName</key>
+					<string>text.html.elixir</string>
+					<key>end</key>
+					<string>\}[a-zA-Z0-9]*</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.string.end.elixir</string>
+						</dict>
+					</dict>
+					<key>name</key>
+					<string>meta.embedded.block.eex</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>text.html.elixir</string>
 						</dict>
 					</array>
 				</dict>

@@ -14,7 +14,31 @@
 	<array>
 		<dict>
 			<key>begin</key>
-			<string>&lt;%+#</string>
+			<string>&lt;%!--</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.comment.begin.eex</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>--%&gt;</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.comment.end.eex</string>
+				</dict>
+			</dict>
+			<key>name</key>
+			<string>comment.block.eex</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>&lt;%#</string>
 			<key>captures</key>
 			<dict>
 				<key>0</key>
@@ -23,14 +47,24 @@
 					<string>punctuation.definition.comment.eex</string>
 				</dict>
 			</dict>
+			<key>comment</key>
+			<string>Deprecated in Elixir 1.18 in favor of &lt;%!-- --%&gt;.</string>
 			<key>end</key>
 			<string>%&gt;</string>
 			<key>name</key>
 			<string>comment.block.elixir</string>
 		</dict>
 		<dict>
+			<key>comment</key>
+			<string>&lt;%% outputs a literal &lt;%.</string>
+			<key>match</key>
+			<string>&lt;%%</string>
+			<key>name</key>
+			<string>constant.character.escape.eex</string>
+		</dict>
+		<dict>
 			<key>begin</key>
-			<string>&lt;%+(?!&gt;)[-=]*</string>
+			<string>&lt;%(?!%)[=/|]?</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>0</key>
@@ -42,23 +76,13 @@
 			<key>contentName</key>
 			<string>source.elixir</string>
 			<key>end</key>
-			<string>(-)%&gt;|(%)&gt;</string>
+			<string>%&gt;</string>
 			<key>endCaptures</key>
 			<dict>
 				<key>0</key>
 				<dict>
 					<key>name</key>
 					<string>punctuation.section.embedded.end.elixir</string>
-				</dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>source.elixir</string>
-				</dict>
-				<key>2</key>
-				<dict>
-					<key>name</key>
-					<string>source.elixir</string>
 				</dict>
 			</dict>
 			<key>name</key>

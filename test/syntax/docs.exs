@@ -1,5 +1,5 @@
 # SYNTAX TEST "source.elixir" "Documentation attributes"
-!!
+
 defmodule MyApp.Worker do
   @moduledoc """
 # ^^^^^^^^^^ comment.block.documentation.heredoc support.attr.doc.elixir
@@ -12,11 +12,11 @@ defmodule MyApp.Worker do
 #                                             ^^^^^^^^^ - markup.italic.markdown
       apply(__MODULE__, :run, [])
 #           ^^^^^^^^^^ - markup.bold.markdown
-!!
+
   ## Examples
 # ^^^^^^^^^^^ comment.block.documentation.heredoc markup.heading.markdown
 # ^^ markup.heading.markdown punctuation.definition.heading.markdown
-!!
+
       iex> MyApp.Worker.start(name: "a")
 #     ^^^^ comment.block.documentation.heredoc meta.embedded.doctest.elixir punctuation.definition.prompt.elixir
 #                       ^^^^^ comment.block.documentation.heredoc meta.embedded.doctest.elixir source.elixir entity.name.function.elixir
@@ -34,7 +34,7 @@ defmodule MyApp.Worker do
       # An indented code block, not a heading
 #     ^^^^^^^^^^^^^ comment.block.documentation.heredoc markup.raw.block.markdown
 #     ^^^^^^^^^^^^^ - markup.heading.markdown
-!!
+
   ```elixir
 # ^^^^^^^^^ comment.block.documentation.heredoc meta.embedded.block.elixir punctuation.definition.markdown
   Worker.run(:now)
@@ -46,7 +46,7 @@ defmodule MyApp.Worker do
   mix run
 # ^^^^^^^ comment.block.documentation.heredoc markup.raw.block.markdown
   ```
-!!
+
   > #### Note {: .info}
 # ^^^^^^^^^^^^^^^^^^^^^ comment.block.documentation.heredoc markup.quote.markdown
   See [the guide](https://hexdocs.pm/elixir) and version #{@version}.
@@ -55,7 +55,7 @@ defmodule MyApp.Worker do
 #                                                        ^^ comment.block.documentation.heredoc meta.embedded.line.elixir punctuation.section.embedded.begin.elixir
   """
 # ^^^ comment.block.documentation.heredoc punctuation.definition.comment.end.elixir
-!!
+
   @doc ~S"""
 # ^^^^ comment.block.documentation.heredoc support.attr.doc.elixir
 #      ^^^^^ comment.block.documentation.heredoc punctuation.definition.comment.begin.elixir
