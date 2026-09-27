@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>name</key>
+	<string>Language Server</string>
+	<key>scope</key>
+	<string>source.elixir</string>
+	<key>settings</key>
+	<dict>
+		<key>languageServer</key>
+		<dict>
+			<key>command</key>
+			<string>"$TM_BUNDLE_SUPPORT/bin/language-server"</string>
+			<key>languageId</key>
+			<string>elixir</string>
+			<key>preferOuterRoot</key>
+			<true/>
+			<key>rootFiles</key>
+			<array>
+				<string>mix.exs</string>
+			</array>
+		</dict>
+	</dict>
+	<key>uuid</key>
+	<string>45AE07D3-FEEB-478A-833E-0CB457C679EA</string>
+</dict>
+</plist>

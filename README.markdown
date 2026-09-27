@@ -84,6 +84,12 @@ Files are formatted when saved, if their project has a `.formatter.exs`. These v
 * `TM_ELIXIR_COMPILE_ON_SAVE = true` compiles the project in the background after saving, updating the marks in the gutter. It is off by default because a server running in the project, such as `mix phx.server`, only reloads code compiled by another process when the project has `listeners: [Phoenix.CodeReloader]` in `mix.exs`, as projects created with Phoenix 1.8 do.
 * `TM_MISE` is the path to mise, when it is not in `~/.local/bin`, `/opt/homebrew/bin`, or `/usr/local/bin`.
 
+## Language server
+
+TextMate (from [the kaffeinated-dev fork](https://github.com/kaffeinated-dev/textmate), 2.0.23+kaffeinated.2) runs [Expert](https://github.com/expert-lsp/expert), the Elixir language server, for the Elixir files of a Mix project: it gets the files as they are edited, and its errors and warnings appear as marks in the gutter without saving. Click a mark to read it, and press F3 to go to the next one. Files in `deps` and in umbrella applications belong to the project around them.
+
+Install Expert with `mise use -g expert`, or put it on the `PATH` set in Preferences → Variables. The first time Expert opens a project with a new Elixir version, it builds its engine, which takes about a minute. Set `TM_ELIXIR_LANGUAGE_SERVER` to the command of another language server, or `TM_DISABLE_LANGUAGE_SERVER = true` (in Preferences → Variables or a project’s `.tm_properties`) to turn it off.
+
 ## Snippets
 
 Snippets expand in Elixir code and in `{expressions}` of templates, not in strings, comments, or template text. Type the trigger and press ⇥.

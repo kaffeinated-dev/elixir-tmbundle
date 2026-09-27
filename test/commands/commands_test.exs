@@ -339,4 +339,32 @@ defmodule CommandsTest do
     assert script =~ "iex -S mix"
     File.rm!(log)
   end
+
+  describe "the language server" do
+    setup %{project: project} do
+      script = Path.expand("../../Support/bin/language-server", __DIR__)
+      home = Path.join(Path.dirname(project), "home")
+      File.mkdir_p!(home)
+
+      run = fn env ->
+        System.cmd(script, [],
+          cd: project,
+          stderr_to_stdout: true,
+          env: [{"TM_BUNDLE_SUPPORT", Path.expand("../../Support", __DIR__)}] ++ env
+        )
+      end
+
+      %{run: run, home: home}
+    end
+
+    test "can be another command", %{run: run} do
+      assert run.([{"TM_ELIXIR_LANGUAGE_SERVER", "echo started in $(basename \"$PWD\")"}]) ==
+               {"started in sample\n", 0}
+    end
+
+    test "tells when Expert is not installed", %{run: run, home: home} do
+      assert {output, 1} = run.([{"HOME", home}, {"PATH", "/usr/bin:/bin"}, {"TM_MISE", nil}])
+      assert output =~ "Expert was not found."
+    end
+  end
 end
