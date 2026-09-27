@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/bin/bash
+. "$TM_BUNDLE_SUPPORT/lib/elixir_commands.sh"
+
+# Formats files in Mix projects that use the formatter (have a .formatter.exs),
+# unless TM_ELIXIR_FORMAT_ON_SAVE is set to false.
+elixir_enabled "${TM_ELIXIR_FORMAT_ON_SAVE:-true}" || exit 200
+root=$(elixir_mix_root) &amp;&amp; [[ -f "$root/.formatter.exs" ]] || exit 200
+elixir_format
+</string>
+	<key>input</key>
+	<string>document</string>
+	<key>inputFormat</key>
+	<string>text</string>
+	<key>name</key>
+	<string>Format on Save</string>
+	<key>outputCaret</key>
+	<string>interpolateByLine</string>
+	<key>outputFormat</key>
+	<string>text</string>
+	<key>outputLocation</key>
+	<string>replaceDocument</string>
+	<key>scope</key>
+	<string>source.elixir - text.html.elixir - text.elixir, text.html.heex</string>
+	<key>semanticClass</key>
+	<string>callback.document.will-save</string>
+	<key>uuid</key>
+	<string>FA357CB1-D169-4DB5-BEE1-BC32CA2782C5</string>
+	<key>version</key>
+	<integer>2</integer>
+</dict>
+</plist>

@@ -2,7 +2,7 @@
 
 A **TextMate / Sublime Text Bundle** for the [**Elixir**](http://github.com/elixir-editors/elixir) programming language.
 
-It provides syntax highlighting, snippets, and keybindings. Contributions and extensions are welcome!
+It provides syntax highlighting, snippets, and commands to run tests, compile, and format code. Contributions and extensions are welcome!
 
 > **Note:** For a package that provides tighter and more up-to-date integration with Sublime Text 4, see [ElixirSyntax](https://packagecontrol.io/packages/ElixirSyntax).
 
@@ -58,6 +58,26 @@ go to Preferences -> Package Settings -> Elixir -> Settings and add
 `"mix_format_on_save": true`.
 
 
+## Commands
+
+In TextMate, the commands run Mix in the project of the current file (the closest folder with a `mix.exs`), with the Elixir version set for the project by [mise](https://mise.jdx.dev) when it is installed, and otherwise with the `elixir` and `mix` found on the `PATH` set in Preferences → Variables.
+
+| Command | Key | |
+|---|---|---|
+| Run | ⌘R | Runs the tests of a test file, or of the test of a file in `lib`. Runs a script with `mix run` in a project, and with `elixir` outside of one. |
+| Run Test at Caret | ⇧⌘R | Runs the test or `describe` block at the caret. |
+| Run All Tests, Run Failed Tests, Run Stale Tests | ⌃\\ | Runs `mix test`, `mix test --failed`, or `mix test --stale`. |
+| Compile | ⌘B | Compiles the project and marks its warnings and errors in the gutter. Click a mark to read its message, and press F3 to jump to the next mark. |
+| Format Document | ⌃⇧H | Formats the document like `mix format`, with the settings and plugins in the project’s `.formatter.exs` (such as the HEEx formatter). |
+
+Output appears in a window, in color, and its file references, such as `test/my_app/user_test.exs:12` or those in stacktraces of dependencies and Elixir itself, open in TextMate when clicked.
+
+Files are formatted when saved, if their project has a `.formatter.exs`. These variables, set in Preferences → Variables or in a project’s `.tm_properties`, change what happens:
+
+* `TM_ELIXIR_FORMAT_ON_SAVE = false` stops formatting on save.
+* `TM_ELIXIR_COMPILE_ON_SAVE = true` compiles the project in the background after saving, updating the marks in the gutter. It is off by default because a server running in the project, such as `mix phx.server`, only reloads code compiled by another process when the project has `listeners: [Phoenix.CodeReloader]` in `mix.exs`, as projects created with Phoenix 1.8 do.
+* `TM_MISE` is the path to mise, when it is not in `~/.local/bin`, `/opt/homebrew/bin`, or `/usr/local/bin`.
+
 ## Snippets
 
 Snippets expand in Elixir code and in `{expressions}` of templates, not in strings, comments, or template text. Type the trigger and press ⇥.
@@ -80,6 +100,8 @@ Grammar changes are covered by scope tests in `test/syntax`. Each file starts wi
     npm test
 
 `test/editing` checks indentation, folding, and the symbol list of the files next to it. It computes them from the preferences the way TextMate does, including how it picks a preference for a scope, so every line of those files must be indented as it is, and the folds and symbols must match the `.folds` and `.symbols` snapshots. After an intended change, rewrite the snapshots with `node test/editing/test.js --update` and review the diff.
+
+`npm run test:commands` runs the commands the way TextMate does in a new Mix project, and tests the Elixir files in `Support/lib/textmate` that format their output, format documents, and set the gutter marks.
 
 `npm run test:snippets` expands every snippet with its default text, as TextMate does, and checks with Elixir that the code parses and is already formatted.
 

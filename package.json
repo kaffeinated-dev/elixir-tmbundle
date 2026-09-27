@@ -3,7 +3,8 @@
   "scripts": {
     "pretest": "test/fetch-grammars",
     "test": "vscode-tmgrammar-test --grammar Syntaxes/Elixir.tmLanguage --grammar Syntaxes/EEx.tmLanguage --grammar 'Syntaxes/HTML (EEx).tmLanguage' --grammar Syntaxes/HEEx.tmLanguage --grammar test/vendor/html-tmbundle/Syntaxes/HTML.plist 'test/syntax/**/*.{ex,exs,eex,heex}' && node test/editing/test.js",
-    "test:snippets": "node test/snippets/expand.js | elixir test/snippets/check.exs"
+    "test:snippets": "node test/snippets/expand.js | elixir test/snippets/check.exs",
+    "test:commands": "elixir test/commands/run.exs"
   },
   "devDependencies": {
     "vscode-oniguruma": "1.7.0",
