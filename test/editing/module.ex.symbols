@@ -1,0 +1,19 @@
+1: MyApp.Accounts
+14:  id  (type)
+15:  row  (type)
+23:  get!
+31:  create
+42:  names
+50:  options
+57:  config
+64:  greeting
+69:  pool_size  (private)
+71:  safely  (private)
+81:  wait  (private)
+89:  __using__
+95:  query
+101:  render
+115: MyApp.Nameable  (protocol)
+116:  name
+119: MyApp.Nameable for MyApp.User  (implementation)
+120:  name

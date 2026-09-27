@@ -2,9 +2,11 @@
   "private": true,
   "scripts": {
     "pretest": "test/fetch-grammars",
-    "test": "vscode-tmgrammar-test --grammar Syntaxes/Elixir.tmLanguage --grammar Syntaxes/EEx.tmLanguage --grammar 'Syntaxes/HTML (EEx).tmLanguage' --grammar Syntaxes/HEEx.tmLanguage --grammar test/vendor/html-tmbundle/Syntaxes/HTML.plist 'test/syntax/**/*.{ex,exs,eex,heex}'"
+    "test": "vscode-tmgrammar-test --grammar Syntaxes/Elixir.tmLanguage --grammar Syntaxes/EEx.tmLanguage --grammar 'Syntaxes/HTML (EEx).tmLanguage' --grammar Syntaxes/HEEx.tmLanguage --grammar test/vendor/html-tmbundle/Syntaxes/HTML.plist 'test/syntax/**/*.{ex,exs,eex,heex}' && node test/editing/test.js"
   },
   "devDependencies": {
+    "vscode-oniguruma": "1.7.0",
+    "vscode-textmate": "7.0.4",
     "vscode-tmgrammar-test": "0.1.3"
   }
 }
