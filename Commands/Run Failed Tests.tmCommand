@@ -5,26 +5,19 @@
 	<key>beforeRunningCommand</key>
 	<string>saveModifiedFiles</string>
 	<key>command</key>
-	<string>#!/usr/bin/env ruby18
-require "#{ENV['TM_SUPPORT_PATH']}/lib/tm/save_current_document"
-require "#{ENV["TM_SUPPORT_PATH"]}/lib/tm/executor"
-
-TextMate.save_if_untitled('exs')
-
-if ENV['TM_FILEPATH'].match(/\/test\/.*_test.exs$/)
-	TextMate::Executor.run(e_sh(ENV['TM_MIX'] || 'mix'), 'test', "#{ENV['TM_FILEPATH']}:#{ENV['TM_LINE_NUMBER']}")
-else
-	puts "Not a test"
-end
+	<string>#!/bin/bash
+. "$TM_BUNDLE_SUPPORT/lib/elixir_commands.sh"
+elixir_require_mix_root
+elixir_html "$MIX_ROOT" "Run Failed Tests" "" "$ELIXIR_TEST_STATUSES" mix test --failed
 </string>
 	<key>input</key>
-	<string>document</string>
+	<string>none</string>
 	<key>inputFormat</key>
 	<string>text</string>
 	<key>keyEquivalent</key>
-	<string>@R</string>
+	<string>^\</string>
 	<key>name</key>
-	<string>Run Focused Test</string>
+	<string>Run Failed Tests</string>
 	<key>outputCaret</key>
 	<string>afterOutput</string>
 	<key>outputFormat</key>
@@ -32,9 +25,9 @@ end
 	<key>outputLocation</key>
 	<string>newWindow</string>
 	<key>scope</key>
-	<string>source.elixir</string>
+	<string>source.elixir, text.html.heex, text.html.elixir</string>
 	<key>uuid</key>
-	<string>CE857198-BBB1-4AF2-AA99-87740503390F</string>
+	<string>E64453E8-EBD5-466D-85CD-7CB7C9A86828</string>
 	<key>version</key>
 	<integer>2</integer>
 </dict>

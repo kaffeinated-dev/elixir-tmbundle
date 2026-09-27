@@ -5,18 +5,19 @@
 	<key>beforeRunningCommand</key>
 	<string>saveModifiedFiles</string>
 	<key>command</key>
-	<string>#!/usr/bin/env ruby18
-require "#{ENV["TM_SUPPORT_PATH"]}/lib/tm/executor"
-TextMate::Executor.run(e_sh(ENV['TM_MIX'] || 'mix'), 'format', ENV['TM_FILEPATH'])
+	<string>#!/bin/bash
+. "$TM_BUNDLE_SUPPORT/lib/elixir_commands.sh"
+elixir_require_mix_root
+elixir_compile
 </string>
 	<key>input</key>
-	<string>document</string>
+	<string>none</string>
 	<key>inputFormat</key>
 	<string>text</string>
 	<key>keyEquivalent</key>
-	<string>@e</string>
+	<string>@b</string>
 	<key>name</key>
-	<string>Format Code</string>
+	<string>Compile</string>
 	<key>outputCaret</key>
 	<string>afterOutput</string>
 	<key>outputFormat</key>
@@ -24,9 +25,9 @@ TextMate::Executor.run(e_sh(ENV['TM_MIX'] || 'mix'), 'format', ENV['TM_FILEPATH'
 	<key>outputLocation</key>
 	<string>newWindow</string>
 	<key>scope</key>
-	<string>source.elixir</string>
+	<string>source.elixir, text.html.heex, text.html.elixir</string>
 	<key>uuid</key>
-	<string>C5F486D4-4EB3-434C-BCE5-6E741FF8893F</string>
+	<string>F789B322-7377-4D3D-B87B-0B848B668232</string>
 	<key>version</key>
 	<integer>2</integer>
 </dict>

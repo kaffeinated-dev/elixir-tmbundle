@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>saveModifiedFiles</string>
+	<key>command</key>
+	<string>#!/bin/bash
+. "$TM_BUNDLE_SUPPORT/lib/elixir_commands.sh"
+elixir_require_mix_root
+elixir_html "$MIX_ROOT" "Run Stale Tests" "" "$ELIXIR_TEST_STATUSES" mix test --stale
+</string>
+	<key>input</key>
+	<string>none</string>
+	<key>inputFormat</key>
+	<string>text</string>
+	<key>keyEquivalent</key>
+	<string>^\</string>
+	<key>name</key>
+	<string>Run Stale Tests</string>
+	<key>outputCaret</key>
+	<string>afterOutput</string>
+	<key>outputFormat</key>
+	<string>html</string>
+	<key>outputLocation</key>
+	<string>newWindow</string>
+	<key>scope</key>
+	<string>source.elixir, text.html.heex, text.html.elixir</string>
+	<key>uuid</key>
+	<string>2BBAA12C-84E3-44E2-A7AD-5AFA445E88AC</string>
+	<key>version</key>
+	<integer>2</integer>
+</dict>
+</plist>

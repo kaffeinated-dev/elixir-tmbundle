@@ -5,17 +5,31 @@
 	<key>beforeRunningCommand</key>
 	<string>saveModifiedFiles</string>
 	<key>command</key>
-	<string>#!/usr/bin/env ruby18
-require "#{ENV['TM_SUPPORT_PATH']}/lib/tm/save_current_document"
-require "#{ENV["TM_SUPPORT_PATH"]}/lib/tm/executor"
+	<string>#!/bin/bash
+. "$TM_BUNDLE_SUPPORT/lib/elixir_commands.sh"
 
-TextMate.save_if_untitled('exs')
+# An untitled document runs as a script.
+if [[ -z "${TM_FILEPATH:-}" ]]; then
+	tmp=$(mktemp -d "${TMPDIR:-/tmp}/textmate-elixir.XXXXXX") || exit 1
+	trap 'rm -rf "$tmp"' EXIT
+	cat &gt; "$tmp/untitled.exs"
+	elixir_html "${TM_PROJECT_DIRECTORY:-$tmp}" "Run" "elixir untitled.exs" "0:success:Done." elixir "$tmp/untitled.exs"
+fi
 
-if ENV['TM_FILEPATH'].match(/\/test\/.*_test.exs$/)
-	TextMate::Executor.run(e_sh(ENV['TM_MIX'] || 'mix'), 'test', ENV['TM_FILEPATH'])
-else
-	TextMate::Executor.run(e_sh(ENV['TM_ELIXIR'] || 'elixir'), ENV['TM_FILEPATH'])
-end
+# Outside a Mix project, a file runs as a script. In a project, a test file (or
+# the test of a file in lib) runs its tests, and a script runs in the project.
+MIX_ROOT=$(elixir_mix_root) || elixir_html "$TM_DIRECTORY" "Run" "" "0:success:Done." elixir "$TM_FILENAME"
+
+if test=$(elixir_test_file); then
+	elixir_html "$MIX_ROOT" "Run Tests" "" "$ELIXIR_TEST_STATUSES" mix test "$test"
+fi
+
+file=${TM_FILEPATH#"$MIX_ROOT"/}
+case "$file" in
+	*.exs)    elixir_html "$MIX_ROOT" "Run" "" "0:success:Done." mix run "$file" ;;
+	lib/*.ex) test="test/${file#lib/}"; elixir_exit_tool_tip "There is no test for $file (${test%.ex}_test.exs)." ;;
+	*)        elixir_exit_tool_tip "Run runs scripts and tests, and the test of a file in lib." ;;
+esac
 </string>
 	<key>input</key>
 	<string>document</string>

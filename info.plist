@@ -10,10 +10,20 @@
 	<string>A dynamic, functional language designed for building scalable and maintainable applications.</string>
 	<key>mainMenu</key>
 	<dict>
+		<key>excludedItems</key>
+		<array>
+			<string>FA357CB1-D169-4DB5-BEE1-BC32CA2782C5</string>
+			<string>3372DBA0-4701-4742-B5CE-052985555FCF</string>
+		</array>
 		<key>items</key>
 		<array>
 			<string>06E4B9F0-06CD-4B95-822F-2CC67E3802C2</string>
 			<string>CE857198-BBB1-4AF2-AA99-87740503390F</string>
+			<string>B5CAD8A7-30D4-4735-A922-E631BA9647E5</string>
+			<string>E64453E8-EBD5-466D-85CD-7CB7C9A86828</string>
+			<string>2BBAA12C-84E3-44E2-A7AD-5AFA445E88AC</string>
+			<string>------------------------------------</string>
+			<string>F789B322-7377-4D3D-B87B-0B848B668232</string>
 			<string>C5F486D4-4EB3-434C-BCE5-6E741FF8893F</string>
 			<string>------------------------------------</string>
 			<string>690E4DB8-89CB-48ED-A515-04B3DC0D0F64</string>
