@@ -342,15 +342,43 @@
 				</dict>
 				<dict>
 					<key>begin</key>
-					<string>@(module|type)?doc (~[a-z])?"""</string>
-					<key>comment</key>
-					<string>@doc with heredocs is treated as documentation</string>
+					<string>^( {2})(?=@)((@)(?:module|type|short)?doc)\s+((?:~[a-z])?(\"\"\"|'''))</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>support.attr.doc.elixir</string>
+						</dict>
+						<key>3</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.attribute.elixir</string>
+						</dict>
+						<key>4</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.comment.begin.elixir</string>
+						</dict>
+					</dict>
 					<key>end</key>
-					<string>\s*"""</string>
+					<string>^\s*(\5)</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.comment.end.elixir</string>
+						</dict>
+					</dict>
 					<key>name</key>
 					<string>comment.block.documentation.heredoc</string>
 					<key>patterns</key>
 					<array>
+						<dict>
+							<key>include</key>
+							<string>#doc_markdown_2</string>
+						</dict>
 						<dict>
 							<key>include</key>
 							<string>#interpolated_elixir</string>
@@ -363,25 +391,84 @@
 				</dict>
 				<dict>
 					<key>begin</key>
-					<string>@(module|type)?doc ~[A-Z]"""</string>
-					<key>comment</key>
-					<string>@doc with heredocs is treated as documentation</string>
+					<string>^( {2})(?=@)((@)(?:module|type|short)?doc)\s+(~[A-Z](\"\"\"|'''))</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>support.attr.doc.elixir</string>
+						</dict>
+						<key>3</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.attribute.elixir</string>
+						</dict>
+						<key>4</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.comment.begin.elixir</string>
+						</dict>
+					</dict>
 					<key>end</key>
-					<string>\s*"""</string>
-					<key>name</key>
-					<string>comment.block.documentation.heredoc</string>
-				</dict>
-				<dict>
-					<key>begin</key>
-					<string>@(module|type)?doc (~[a-z])?'''</string>
-					<key>comment</key>
-					<string>@doc with heredocs is treated as documentation</string>
-					<key>end</key>
-					<string>\s*'''</string>
+					<string>^\s*(\5)</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.comment.end.elixir</string>
+						</dict>
+					</dict>
 					<key>name</key>
 					<string>comment.block.documentation.heredoc</string>
 					<key>patterns</key>
 					<array>
+						<dict>
+							<key>include</key>
+							<string>#doc_markdown_2</string>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>^( {4})(?=@)((@)(?:module|type|short)?doc)\s+((?:~[a-z])?(\"\"\"|'''))</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>support.attr.doc.elixir</string>
+						</dict>
+						<key>3</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.attribute.elixir</string>
+						</dict>
+						<key>4</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.comment.begin.elixir</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>^\s*(\5)</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.comment.end.elixir</string>
+						</dict>
+					</dict>
+					<key>name</key>
+					<string>comment.block.documentation.heredoc</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#doc_markdown_4</string>
+						</dict>
 						<dict>
 							<key>include</key>
 							<string>#interpolated_elixir</string>
@@ -394,29 +481,185 @@
 				</dict>
 				<dict>
 					<key>begin</key>
-					<string>@(module|type)?doc ~[A-Z]'''</string>
-					<key>comment</key>
-					<string>@doc with heredocs is treated as documentation</string>
+					<string>^( {4})(?=@)((@)(?:module|type|short)?doc)\s+(~[A-Z](\"\"\"|'''))</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>support.attr.doc.elixir</string>
+						</dict>
+						<key>3</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.attribute.elixir</string>
+						</dict>
+						<key>4</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.comment.begin.elixir</string>
+						</dict>
+					</dict>
 					<key>end</key>
-					<string>\s*'''</string>
+					<string>^\s*(\5)</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.comment.end.elixir</string>
+						</dict>
+					</dict>
 					<key>name</key>
 					<string>comment.block.documentation.heredoc</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#doc_markdown_4</string>
+						</dict>
+					</array>
 				</dict>
 				<dict>
-					<key>comment</key>
-					<string>@doc false is treated as documentation</string>
+					<key>begin</key>
+					<string>()((@)(?:module|type|short)?doc)\s+((?:~[a-z])?(\"\"\"|'''))</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>support.attr.doc.elixir</string>
+						</dict>
+						<key>3</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.attribute.elixir</string>
+						</dict>
+						<key>4</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.comment.begin.elixir</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>^\s*(\5)</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.comment.end.elixir</string>
+						</dict>
+					</dict>
+					<key>name</key>
+					<string>comment.block.documentation.heredoc</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#doc_markdown</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#interpolated_elixir</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#escaped_char</string>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>()((@)(?:module|type|short)?doc)\s+(~[A-Z](\"\"\"|'''))</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>support.attr.doc.elixir</string>
+						</dict>
+						<key>3</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.attribute.elixir</string>
+						</dict>
+						<key>4</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.comment.begin.elixir</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>^\s*(\5)</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.comment.end.elixir</string>
+						</dict>
+					</dict>
+					<key>name</key>
+					<string>comment.block.documentation.heredoc</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#doc_markdown</string>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>support.attr.doc.elixir</string>
+						</dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.attribute.elixir</string>
+						</dict>
+					</dict>
 					<key>match</key>
-					<string>@(module|type)?doc false</string>
+					<string>((@)(?:module|type|short)?doc)\s+false\b</string>
 					<key>name</key>
 					<string>comment.block.documentation.false</string>
 				</dict>
 				<dict>
 					<key>begin</key>
-					<string>@(module|type)?doc "</string>
-					<key>comment</key>
-					<string>@doc with string is treated as documentation</string>
+					<string>((@)(?:module|type|short)?doc)\s+((?:~[a-z])?")</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>support.attr.doc.elixir</string>
+						</dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.attribute.elixir</string>
+						</dict>
+						<key>3</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.comment.begin.elixir</string>
+						</dict>
+					</dict>
 					<key>end</key>
 					<string>"</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.comment.end.elixir</string>
+						</dict>
+					</dict>
 					<key>name</key>
 					<string>comment.block.documentation.string</string>
 					<key>patterns</key>
@@ -430,6 +673,66 @@
 							<string>#escaped_char</string>
 						</dict>
 					</array>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>((@)(?:module|type|short)?doc)\s+(~[A-Z]")</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>support.attr.doc.elixir</string>
+						</dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.attribute.elixir</string>
+						</dict>
+						<key>3</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.comment.begin.elixir</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>"</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.comment.end.elixir</string>
+						</dict>
+					</dict>
+					<key>name</key>
+					<string>comment.block.documentation.string</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>match</key>
+							<string>\\.</string>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>support.attr.doc.elixir</string>
+						</dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.attribute.elixir</string>
+						</dict>
+					</dict>
+					<key>comment</key>
+					<string>@doc with metadata, e.g. @doc since: "1.0.0"</string>
+					<key>match</key>
+					<string>((@)(?:module|type|short)?doc)\b(?![?!])</string>
 				</dict>
 				<dict>
 					<key>match</key>
@@ -468,6 +771,106 @@
 					<string>\b(__(CALLER|ENV|MODULE|DIR|STACKTRACE)__)\b(?![?!])</string>
 					<key>name</key>
 					<string>variable.language.elixir</string>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>^(\s*)((@)(?:spec|callback|macrocallback))(?![?!\w])\s*(?:(?!unquote\b)([a-z_]\w*[?!]?)(?=\s*(?:\(|::(?!:)|$)))?</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.declaration.type.elixir</string>
+						</dict>
+						<key>3</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.keyword.elixir</string>
+						</dict>
+						<key>4</key>
+						<dict>
+							<key>name</key>
+							<string>entity.name.function.spec.elixir</string>
+						</dict>
+					</dict>
+					<key>comment</key>
+					<string>Continues on lines indented deeper than the attribute, as in formatted specs and unions.</string>
+					<key>name</key>
+					<string>meta.type.elixir</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#typespec</string>
+						</dict>
+					</array>
+					<key>while</key>
+					<string>^\1\s+(?=\S)</string>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>^(\s*)((@)(?:typep?|opaque))(?![?!\w])\s*(?:(?!unquote\b)([a-z_]\w*[?!]?)(?=\s*(?:\(|::(?!:)|$)))?</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.declaration.type.elixir</string>
+						</dict>
+						<key>3</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.keyword.elixir</string>
+						</dict>
+						<key>4</key>
+						<dict>
+							<key>name</key>
+							<string>entity.name.type.elixir</string>
+						</dict>
+					</dict>
+					<key>comment</key>
+					<string>Continues on lines indented deeper than the attribute, as in formatted specs and unions.</string>
+					<key>name</key>
+					<string>meta.type.elixir</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#typespec</string>
+						</dict>
+					</array>
+					<key>while</key>
+					<string>^\1\s+(?=\S)</string>
+				</dict>
+				<dict>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.keyword.elixir</string>
+						</dict>
+					</dict>
+					<key>match</key>
+					<string>(@)(?:spec|callback|macrocallback|typep?|opaque)\b(?![?!])</string>
+					<key>name</key>
+					<string>keyword.declaration.type.elixir</string>
+				</dict>
+				<dict>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.attribute.elixir</string>
+						</dict>
+					</dict>
+					<key>comment</key>
+					<string>Attributes with a meaning to the compiler, Mix, or ExUnit.</string>
+					<key>match</key>
+					<string>(@)(?:impl|deprecated|(?:before_|after_)?compile|after_verify|behaviou?r|enforce_keys|fallback_to_any|optional_callbacks|file|dialyzer|derive|external_resource|vsn|on_definition|on_load|nifs|moduletag|describetag|tag)\b(?![?!])</string>
+					<key>name</key>
+					<string>support.attr.elixir</string>
 				</dict>
 				<dict>
 					<key>captures</key>
@@ -1932,6 +2335,332 @@
 				</dict>
 			</array>
 		</dict>
+		<key>doc_markdown</key>
+		<dict>
+			<key>comment</key>
+			<string>The Markdown used in docs, including doctests and fenced code, which are Elixir.</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#doctest</string>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>^(\s*)(```|~~~)\s*(?:elixir|ex|exs|iex)\s*$</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.markdown</string>
+						</dict>
+					</dict>
+					<key>contentName</key>
+					<string>source.elixir</string>
+					<key>end</key>
+					<string>^\s*\2\s*$|(?=^\s*(?:\"\"\"|''')\s*$)</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.markdown</string>
+						</dict>
+					</dict>
+					<key>name</key>
+					<string>meta.embedded.block.elixir</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>$self</string>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>^(\s*)(```|~~~)</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.markdown</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>^\s*\2\s*$|(?=^\s*(?:\"\"\"|''')\s*$)</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.markdown</string>
+						</dict>
+					</dict>
+					<key>name</key>
+					<string>markup.raw.block.markdown</string>
+				</dict>
+				<dict>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.heading.markdown</string>
+						</dict>
+					</dict>
+					<key>match</key>
+					<string>^\s*(#{1,6})\s+.*$</string>
+					<key>name</key>
+					<string>markup.heading.markdown</string>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>^\s*(&gt;)(?!&gt;)</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.quote.markdown</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>$</string>
+					<key>name</key>
+					<string>markup.quote.markdown</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#doc_markdown_inline</string>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.list_item.markdown</string>
+						</dict>
+					</dict>
+					<key>match</key>
+					<string>^\s*([*+-]|\d+\.)(?=\s)</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#doc_markdown_inline</string>
+				</dict>
+			</array>
+		</dict>
+		<key>doc_markdown_2</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>^ {6}(?= *\S)</string>
+					<key>comment</key>
+					<string>An indented code block; blank lines continue it.</string>
+					<key>name</key>
+					<string>markup.raw.block.markdown</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#doctest</string>
+						</dict>
+					</array>
+					<key>while</key>
+					<string>^(?: {6}| *$)</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#doc_markdown</string>
+				</dict>
+			</array>
+		</dict>
+		<key>doc_markdown_4</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>^ {8}(?= *\S)</string>
+					<key>comment</key>
+					<string>An indented code block; blank lines continue it.</string>
+					<key>name</key>
+					<string>markup.raw.block.markdown</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#doctest</string>
+						</dict>
+					</array>
+					<key>while</key>
+					<string>^(?: {8}| *$)</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#doc_markdown</string>
+				</dict>
+			</array>
+		</dict>
+		<key>doc_markdown_inline</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.raw.markdown</string>
+						</dict>
+						<key>3</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.raw.markdown</string>
+						</dict>
+						<key>4</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.raw.markdown</string>
+						</dict>
+						<key>6</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.raw.markdown</string>
+						</dict>
+					</dict>
+					<key>match</key>
+					<string>(``)(.+?)(``)|(`)([^`]+)(`)</string>
+					<key>name</key>
+					<string>markup.raw.inline.markdown</string>
+				</dict>
+				<dict>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.bold.markdown</string>
+						</dict>
+						<key>3</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.bold.markdown</string>
+						</dict>
+					</dict>
+					<key>comment</key>
+					<string>Only **bold**: __name__ is far more often an Elixir name like __MODULE__.</string>
+					<key>match</key>
+					<string>(?&lt;!\w)(\*\*)(?=\S)(.+?)(?&lt;=\S)(\*\*)(?!\w)</string>
+					<key>name</key>
+					<string>markup.bold.markdown</string>
+				</dict>
+				<dict>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.italic.markdown</string>
+						</dict>
+						<key>3</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.italic.markdown</string>
+						</dict>
+					</dict>
+					<key>match</key>
+					<string>(?&lt;![\w*])(\*|_)(?=[^\s*_])(.+?)(?&lt;=[^\s*_])(\1)(?![\w*])</string>
+					<key>name</key>
+					<string>markup.italic.markdown</string>
+				</dict>
+				<dict>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.string.begin.markdown</string>
+						</dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>string.other.link.title.markdown</string>
+						</dict>
+						<key>3</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.string.end.markdown</string>
+						</dict>
+						<key>4</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.metadata.markdown</string>
+						</dict>
+						<key>5</key>
+						<dict>
+							<key>name</key>
+							<string>markup.underline.link.markdown</string>
+						</dict>
+						<key>6</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.metadata.markdown</string>
+						</dict>
+					</dict>
+					<key>match</key>
+					<string>(\[)([^\]]+)(\])(\()([^)\s]+)(\))</string>
+					<key>name</key>
+					<string>meta.link.inline.markdown</string>
+				</dict>
+			</array>
+		</dict>
+		<key>doctest</key>
+		<dict>
+			<key>begin</key>
+			<string>(?:^|\G)\s*(iex(?:\(\d+\))?&gt;)(?=\s|$)</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.prompt.elixir</string>
+				</dict>
+			</dict>
+			<key>comment</key>
+			<string>A doctest continues on ...&gt; lines.</string>
+			<key>contentName</key>
+			<string>source.elixir</string>
+			<key>name</key>
+			<string>meta.embedded.doctest.elixir</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>$self</string>
+				</dict>
+			</array>
+			<key>while</key>
+			<string>(?:^|\G)\s*(\.\.\.(?:\(\d+\))?&gt;)(?=\s|$)</string>
+			<key>whileCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.prompt.elixir</string>
+				</dict>
+			</dict>
+		</dict>
 		<key>escaped_char</key>
 		<dict>
 			<key>match</key>
@@ -2029,6 +2758,93 @@
 							<string>#nest_curly_and_self</string>
 						</dict>
 					</array>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>$self</string>
+				</dict>
+			</array>
+		</dict>
+		<key>typespec</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>comment</key>
+					<string>A named argument or element: reason :: term()</string>
+					<key>match</key>
+					<string>(?&lt;![.\w@:])(?!(?:_|nil|true|false)\b)[a-z_]\w*[?!]?(?=\s*::(?!:))</string>
+					<key>name</key>
+					<string>variable.parameter.elixir</string>
+				</dict>
+				<dict>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.other.optional.elixir</string>
+						</dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.other.required.elixir</string>
+						</dict>
+					</dict>
+					<key>match</key>
+					<string>\b(?:(optional)|(required))(?=\s*\()</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>(?&lt;![.\w@:])(?:any|arity|as_boolean|atom|binary|bitstring|boolean|byte|char|charlist|float|fun|function|identifier|integer|iodata|iolist|keyword|list|map|maybe_improper_list|mfa|module|neg_integer|no_return|node|non_neg_integer|none|nonempty_binary|nonempty_bitstring|nonempty_charlist|nonempty_improper_list|nonempty_list|nonempty_maybe_improper_list|number|pid|port|pos_integer|reference|struct|term|timeout|tuple|var)\b(?![?!:])</string>
+					<key>name</key>
+					<string>support.type.elixir</string>
+				</dict>
+				<dict>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>entity.name.type.class.elixir</string>
+						</dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>constant.other.symbol.elixir</string>
+						</dict>
+						<key>3</key>
+						<dict>
+							<key>name</key>
+							<string>variable.language.elixir</string>
+						</dict>
+						<key>4</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.separator.method.elixir</string>
+						</dict>
+						<key>5</key>
+						<dict>
+							<key>name</key>
+							<string>storage.type.remote.elixir</string>
+						</dict>
+					</dict>
+					<key>comment</key>
+					<string>Remote types: String.t(), :inet.ip_address(), __MODULE__.t()</string>
+					<key>match</key>
+					<string>(?:\b([A-Z]\w*(?:\.[A-Z]\w*)*)|(:[a-z_]\w*)|\b(__MODULE__))\s*(\.)\s*([a-z_]\w*[?!]?)</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>(?&lt;![.\w@:])(?!(?:when|and|or|not|in|nil|true|false|do|end|fn|unquote)\b)(?!__\w+__\b|_\b)[a-z_]\w*[?!]?(?![?!:\w])</string>
+					<key>name</key>
+					<string>storage.type.custom.elixir</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>\.\.\.</string>
+					<key>name</key>
+					<string>keyword.operator.ellipsis.elixir</string>
 				</dict>
 				<dict>
 					<key>include</key>
