@@ -57,3 +57,12 @@ You can also set up the package to automatically format the file on save. To do 
 go to Preferences -> Package Settings -> Elixir -> Settings and add
 `"mix_format_on_save": true`.
 
+
+## Development
+
+Grammar changes are covered by scope tests in `test/syntax`. Each file starts with a `# SYNTAX TEST "source.elixir"` header, and lines with `^` markers assert the scopes of the source line above them (see [vscode-tmgrammar-test](https://github.com/PanAeon/vscode-tmgrammar-test)). Run them with:
+
+    npm install
+    npm test
+
+The tests use the HTML grammar from [textmate/html.tmbundle](https://github.com/textmate/html.tmbundle), pinned in `test/fetch-grammars` to the revision that TextMate installs.

@@ -1,0 +1,16 @@
+#!/bin/sh
+# Fetch the grammars included by the Elixir grammars (text.html.basic). They are
+# pinned to the revisions served by TextMate’s bundle index, so tests see the
+# same scopes as the bundles installed by TextMate.
+set -e
+
+fetch () { # repository, revision
+	dest="test/vendor/$1"
+	if [ "$(cat "$dest/.sha" 2>/dev/null)" != "$2" ]; then
+		rm -rf "$dest" && mkdir -p "$dest"
+		curl -fsSL "https://codeload.github.com/textmate/${1%-tmbundle}.tmbundle/tar.gz/$2" | tar -xz --strip-components=1 -C "$dest"
+		echo "$2" > "$dest/.sha"
+	fi
+}
+
+fetch html-tmbundle 0c3d5ee54de3a993f747f54186b73a4d2d3c44a2
