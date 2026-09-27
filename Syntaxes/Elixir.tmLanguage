@@ -1050,6 +1050,23 @@
 					<string>((@)(?:module|type|short)?doc)\b(?![?!])</string>
 				</dict>
 				<dict>
+					<key>begin</key>
+					<string>^\s*(describe|test)\s+(?=\")</string>
+					<key>comment</key>
+					<string>ExUnit describe and test names, for the symbol list.</string>
+					<key>end</key>
+					<string>(?&lt;=\")</string>
+					<key>name</key>
+					<string>meta.$1.elixir</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>$self</string>
+						</dict>
+					</array>
+				</dict>
+				<dict>
 					<key>match</key>
 					<string>(?&lt;!\.)\b(do|end|case|for|if|cond|unless|try|receive|fn|defmodule|defp?|defprotocol|defimpl|defstruct|defnp?|defmacrop?|defguardp?|defdelegate|defexception|defoverridable|exit|after|rescue|catch|else|raise|reraise|throw|import|require|alias|use|quote|unquote|unquote_splicing|super|with)\b(?![?!:])</string>
 					<key>name</key>
