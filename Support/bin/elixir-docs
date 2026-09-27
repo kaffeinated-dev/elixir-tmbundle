@@ -1,0 +1,5 @@
+#!/bin/bash
+# Prints the documentation of a reference, such as Enum.map/2, as HTML for the
+# documentation window, whose links run it (the environment is the command’s).
+. "$TM_BUNDLE_SUPPORT/lib/elixir_commands.sh"
+elixir_mix_task "$(elixir_project_or_folder)" docs html --reference "$1" </dev/null

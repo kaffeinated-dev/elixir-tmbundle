@@ -69,6 +69,12 @@ In TextMate, the commands run Mix in the project of the current file (the closes
 | Run All Tests, Run Failed Tests, Run Stale Tests | ⌃\\ | Runs `mix test`, `mix test --failed`, or `mix test --stale`. |
 | Compile | ⌘B | Compiles the project and marks its warnings and errors in the gutter. Click a mark to read its message, and press F3 to jump to the next mark. |
 | Format Document | ⌃⇧H | Formats the document like `mix format`, with the settings and plugins in the project’s `.formatter.exs` (such as the HEEx formatter). |
+| Documentation for Word | ⌃H | Shows the documentation of the module, function, type, or callback at the caret (or of the selection, such as `Enum.map/2`), with its specs and a link to its source. Code that names other modules and functions links to their documentation. |
+| Go to Definition | ⌃⌘J | Opens where the module, function, HEEx component, or module attribute at the caret is defined, in the project, its dependencies, Elixir, or Erlang/OTP. |
+| Go to Test or Implementation | ⌥⌘↓ | Switches between `lib/my_app/user.ex` and `test/my_app/user_test.exs`, and offers to create a missing test. |
+| Open IEx in Terminal | | Runs `iex -S mix` in the project in a new Terminal window. |
+
+Documentation and definitions follow the aliases and imports in scope, including those that `use` brings, such as Phoenix’s `use MyAppWeb, :live_view` or a test’s `use MyAppWeb.ConnCase`. They come from the project’s compiled code, as `mix help` does, while the project’s own files are searched as they are now. In a callback implementation such as a LiveView’s `mount/3`, the documentation is the callback’s.
 
 Output appears in a window, in color, and its file references, such as `test/my_app/user_test.exs:12` or those in stacktraces of dependencies and Elixir itself, open in TextMate when clicked.
 

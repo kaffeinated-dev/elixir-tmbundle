@@ -59,6 +59,18 @@ elixir_exec () { # directory, command…
 	)
 }
 
+# Run one of the bundle’s Mix tasks (mix textmate.TASK) in a directory.
+elixir_mix_task () { # directory, task, arguments…
+	local dir=$1 task=$2
+	shift 2
+	MIX_QUIET=1 elixir_exec "$dir" elixir -r "$ELIXIR_LIB/load.exs" -S mix "textmate.$task" "$@"
+}
+
+# The Mix project of the current file, or its folder.
+elixir_project_or_folder () {
+	elixir_mix_root || echo "${TM_DIRECTORY:-${TM_PROJECT_DIRECTORY:-${TMPDIR:-/tmp}}}"
+}
+
 # Is a TM_ELIXIR_… setting on? (1, true, yes, on)
 elixir_enabled () {
 	case "$(printf '%s' "$1" | tr '[:upper:]' '[:lower:]')" in
@@ -92,7 +104,7 @@ elixir_format () {
 	trap 'rm -rf "$tmp"' EXIT
 	cat > "$tmp/input"
 
-	MIX_QUIET=1 elixir_exec "$dir" elixir -r "$ELIXIR_LIB/format.ex" -S mix textmate.format "$file" "$tmp/output" < "$tmp/input" > /dev/null 2> "$tmp/errors"
+	elixir_mix_task "$dir" format "$file" "$tmp/output" < "$tmp/input" > /dev/null 2> "$tmp/errors"
 	rc=$?
 
 	if [[ $rc -ne 0 ]]; then
@@ -131,7 +143,7 @@ elixir_test_file () {
 elixir_html () { # directory, title, shown command, statuses (see html.ex), command…
 	local dir=$1
 	shift
-	elixir_exec "$dir" elixir -r "$ELIXIR_LIB/html.ex" -e 'TextMate.HTML.main()' -- "$@"
+	elixir_exec "$dir" elixir -r "$ELIXIR_LIB/load.exs" -e 'TextMate.HTML.main()' -- "$@"
 	exit 0
 }
 
@@ -142,10 +154,114 @@ elixir_html () { # directory, title, shown command, statuses (see html.ex), comm
 # Compile MIX_ROOT, showing the output, and the warnings and errors as marks.
 elixir_compile () {
 	elixir_html "$MIX_ROOT" "Compile" "mix compile" "0:success:Compiled.|1:failure:Compilation failed." \
-		elixir -r "$ELIXIR_LIB/marks.ex" -r "$ELIXIR_LIB/compile.ex" -S mix textmate.compile
+		elixir -r "$ELIXIR_LIB/load.exs" -S mix textmate.compile
 }
 
 # Compile MIX_ROOT in the background, only updating the marks.
 elixir_compile_in_background () {
-	( elixir_exec "$MIX_ROOT" elixir -r "$ELIXIR_LIB/marks.ex" -r "$ELIXIR_LIB/compile.ex" -S mix textmate.compile </dev/null >/dev/null 2>&1 & )
+	( elixir_mix_task "$MIX_ROOT" compile </dev/null >/dev/null 2>&1 & )
+}
+
+# ==========================
+# = Documentation and code =
+# ==========================
+
+# Show the documentation of the selection, or of the code at the caret (the
+# document is the standard input), in an HTML window.
+elixir_docs () {
+	local dir html errors
+	dir=$(elixir_project_or_folder)
+	errors=$(mktemp "${TMPDIR:-/tmp}/textmate-elixir.XXXXXX") || exit 1
+	trap 'rm -f "$errors"' EXIT
+
+	if [[ -n "${TM_SELECTED_TEXT:-}" ]]; then
+		html=$(elixir_mix_task "$dir" docs page --reference "$TM_SELECTED_TEXT" </dev/null 2> "$errors")
+	else
+		html=$(elixir_mix_task "$dir" docs page "${TM_FILEPATH:-}" "${TM_LINE_NUMBER:-1}" "${TM_LINE_INDEX:-0}" 2> "$errors")
+	fi || elixir_exit_tool_tip "$(grep -v '^[[:space:]]*$' "$errors" | tail -n 1)"
+
+	printf '%s' "$html"
+	exit 0
+}
+
+# Open the definition of the code at the caret (the document is the standard input).
+elixir_go_to_definition () {
+	local dir result errors
+	dir=$(elixir_project_or_folder)
+	errors=$(mktemp "${TMPDIR:-/tmp}/textmate-elixir.XXXXXX") || exit 1
+	trap 'rm -f "$errors"' EXIT
+
+	result=$(elixir_mix_task "$dir" definition "${TM_FILEPATH:-}" "${TM_LINE_NUMBER:-1}" "${TM_LINE_INDEX:-0}" 2> "$errors") ||
+		elixir_exit_tool_tip "$(grep -v '^[[:space:]]*$' "$errors" | tail -n 1)"
+
+	"$TM_MATE" -l "${result%%$'\t'*}" "${result#*$'\t'}" >/dev/null 2>&1
+	exit 200
+}
+
+# ==============
+# = Navigation =
+# ==============
+
+# Open the test of the current file (lib/my_app/user.ex → test/my_app/user_test.exs),
+# or the file of the current test. A missing test can be created.
+elixir_go_to_test () {
+	elixir_require_mix_root
+	local file=${TM_FILEPATH#"$MIX_ROOT"/} other
+	case "$file" in
+		test/*_test.exs) other="lib/${file#test/}"; other="${other%_test.exs}.ex" ;;
+		lib/*.ex)        other="test/${file#lib/}"; other="${other%.ex}_test.exs" ;;
+		*)               elixir_exit_tool_tip "Go to Test works in the lib and test folders." ;;
+	esac
+
+	if [[ ! -f "$MIX_ROOT/$other" ]]; then
+		[[ "$other" == test/* ]] || elixir_exit_tool_tip "There is no $other."
+		elixir_confirm "Create $other?" "There is no test for $file yet." "Create Test" || elixir_exit_discard
+		elixir_create_test "$file" "$other"
+	fi
+
+	"$TM_MATE" "$MIX_ROOT/$other" >/dev/null 2>&1
+	exit 200
+}
+
+# Write a test module for a module (paths relative to MIX_ROOT). Tests of web
+# modules use the ConnCase of Phoenix projects, other tests their DataCase,
+# and doctests run when the module has examples.
+elixir_create_test () { # file, test
+	local module template support options=", async: true" doctest=""
+	module=$(sed -n -E 's/^[[:space:]]*defmodule[[:space:]]+([A-Za-z0-9_.]+)[[:space:]]+do.*/\1/p' "$MIX_ROOT/$1" | head -n 1)
+	[[ -n "$module" ]] || elixir_exit_tool_tip "There is no module in $1."
+
+	template=ExUnit.Case
+	case "$1" in
+		lib/*_web/*|lib/*_web.ex) support=conn_case ;;
+		*)                        support=data_case ;;
+	esac
+	if [[ -f "$MIX_ROOT/test/support/$support.ex" ]]; then
+		template=$(sed -n -E 's/^defmodule[[:space:]]+([A-Za-z0-9_.]+)[[:space:]]+do.*/\1/p' "$MIX_ROOT/test/support/$support.ex" | head -n 1)
+		options=""
+	fi
+	grep -q 'iex>' "$MIX_ROOT/$1" && doctest=$'\n  doctest '"$module"$'\n'
+
+	mkdir -p "$(dirname "$MIX_ROOT/$2")"
+	printf 'defmodule %sTest do\n  use %s%s\n%s\n  alias %s\nend\n' "$module" "${template:-ExUnit.Case}" "$options" "$doctest" "$module" > "$MIX_ROOT/$2"
+}
+
+# Ask for confirmation in an alert: title, message, button. Returns 0 when the
+# button was clicked.
+elixir_confirm () {
+	"$DIALOG" alert --alertStyle informational --title "$1" --body "$2" --button1 "$3" --button2 Cancel |
+		tr -d '\n\t' | grep -q '<key>buttonClicked</key><integer>0</integer>'
+}
+
+# Open IEx in Terminal, in the project (iex -S mix) or the file’s folder.
+elixir_open_iex () {
+	local dir command mise
+	if dir=$(elixir_mix_root); then command="iex -S mix"; else dir=$(elixir_project_or_folder); command=iex; fi
+	mise=$(elixir_mise) && command="$(printf '%q' "$mise") exec -- $command"
+	command="cd $(printf '%q' "$dir") && $command"
+	command=${command//\\/\\\\}
+	command=${command//\"/\\\"}
+	osascript -e "tell application \"Terminal\" to do script \"$command\"" -e 'tell application "Terminal" to activate' >/dev/null ||
+		elixir_exit_tool_tip "Could not open Terminal."
+	exit 200
 }

@@ -6,7 +6,7 @@ defmodule Mix.Tasks.Textmate.Compile do
   # Compiles the project, like `mix compile`, and shows its warnings and errors
   # as marks in TextMate's gutter.
   #
-  #     elixir -r marks.ex -r compile.ex -S mix textmate.compile [ARGS…]
+  #     elixir -r load.exs -S mix textmate.compile [ARGS…]
 
   @impl true
   def run(args) do
