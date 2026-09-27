@@ -25,7 +25,10 @@ defmodule CommandCase do
 
     # The real path, as in compiler diagnostics (the temporary folder may be a symbolic link).
     {project, 0} = System.cmd("pwd", ["-P"], cd: Path.join(dir, "sample"))
-    %{project: String.trim(project)}
+    project = String.trim(project)
+    marks = Path.join([System.tmp_dir!(), "textmate-elixir", "marks-#{:erlang.phash2(project)}"])
+    on_exit(fn -> File.rm(marks) end)
+    %{project: project}
   end
 
   @doc """
@@ -66,9 +69,11 @@ defmodule CommandCase do
         {"TM_DIRECTORY", path && Path.dirname(path)},
         {"TM_PROJECT_DIRECTORY", project},
         {"TM_LINE_NUMBER", to_string(Keyword.get(options, :line, 1))},
+        {"TM_LINE_INDEX", to_string(Keyword.get(options, :index, 0))},
         {"TM_SCOPE", Keyword.get(options, :scope, "source.elixir")},
         {"TM_ELIXIR_FORMAT_ON_SAVE", nil},
         {"TM_ELIXIR_COMPILE_ON_SAVE", nil},
+        {"TM_SELECTED_TEXT", nil},
         {"LC_CTYPE", "en_US.UTF-8"}
       ] ++ Keyword.get(options, :env, [])
 
@@ -107,6 +112,19 @@ defmodule CommandCase do
 
     File.rm_rf!(dir)
     result
+  end
+
+  @doc """
+  Writes an executable script to a new folder and returns the folder, to put
+  first on the PATH, or the script, as $DIALOG.
+  """
+  def fake(project, name, script) do
+    dir = Path.join(Path.dirname(project), "fake-#{System.unique_integer([:positive])}")
+
+    File.mkdir_p!(dir)
+    File.write!(Path.join(dir, name), "#!/bin/bash\n" <> script)
+    File.chmod!(Path.join(dir, name), 0o755)
+    dir
   end
 
   # The command's script, from its property list.

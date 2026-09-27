@@ -8,7 +8,7 @@ defmodule Mix.Tasks.Textmate.Format do
   # the result to OUTPUT (where no other output of Mix can end up). When it
   # can't, it prints why on one line, for a tool tip.
   #
-  #     elixir -r format.ex -S mix textmate.format FILE OUTPUT
+  #     elixir -r load.exs -S mix textmate.format FILE OUTPUT
 
   @impl true
   def run([file, output]) do
@@ -22,7 +22,7 @@ defmodule Mix.Tasks.Textmate.Format do
     File.write!(output, formatter.(input))
   rescue
     exception ->
-      IO.puts(:stderr, "Not formatted: " <> reason(exception))
+      IO.binwrite(:stderr, ["Not formatted: " <> reason(exception), ?\n])
       exit({:shutdown, 1})
   end
 

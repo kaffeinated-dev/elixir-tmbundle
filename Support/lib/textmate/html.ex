@@ -5,7 +5,7 @@ defmodule TextMate.HTML do
   # arrives, with ANSI colors as styled spans and file references such as
   # `lib/my_app/user.ex:12` as links that open in TextMate, then its status.
   #
-  #     elixir -r html.ex -e TextMate.HTML.main -- TITLE SHOWN STATUSES COMMAND [ARGS…]
+  #     elixir -r load.exs -e TextMate.HTML.main -- TITLE SHOWN STATUSES COMMAND [ARGS…]
   #
   # SHOWN is the command shown in the heading, if not COMMAND itself. STATUSES
   # describes exit statuses, e.g. "0:success:Tests passed.|2:failure:Tests failed.";
@@ -21,19 +21,19 @@ defmodule TextMate.HTML do
     root = File.cwd!()
     shown = if shown == "", do: Enum.join([executable | args], " "), else: shown
 
-    IO.write(header(title, shown, root))
+    IO.binwrite(header(title, shown, root))
 
     status =
       case System.find_executable(executable) do
         nil ->
-          IO.write(escape("#{executable}: command not found\n"))
+          IO.binwrite(escape("#{executable}: command not found\n"))
           127
 
         path ->
           run(path, args, root)
       end
 
-    IO.write(footer(status, statuses))
+    IO.binwrite(footer(status, statuses))
     System.halt(0)
   end
 
@@ -59,17 +59,17 @@ defmodule TextMate.HTML do
     receive do
       {^port, {:data, data}} ->
         {html, state} = feed(state, data)
-        IO.write(html)
+        IO.binwrite(html)
         loop(port, state)
 
       {^port, {:exit_status, status}} ->
         {html, _state} = finish(state)
-        IO.write(html)
+        IO.binwrite(html)
         status
     after
       timeout ->
         {html, state} = flush(state)
-        IO.write(html)
+        IO.binwrite(html)
         loop(port, state)
     end
   end

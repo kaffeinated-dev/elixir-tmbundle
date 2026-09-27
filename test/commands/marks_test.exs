@@ -74,7 +74,11 @@ defmodule TextMate.MarksTest do
       )
 
       File.chmod!(mate, 0o755)
-      on_exit(fn -> File.rm_rf!(dir) end)
+
+      on_exit(fn ->
+        File.rm_rf!(dir)
+        File.rm(Path.join([System.tmp_dir!(), "textmate-elixir", "marks-#{:erlang.phash2(dir)}"]))
+      end)
 
       calls = fn ->
         log = File.read!(Path.join(dir, "log"))

@@ -3,7 +3,7 @@ ExUnit.start()
 
 root = Path.expand("../..", __DIR__)
 
-for file <- ~w(html marks format compile) do
+for file <- ~w(html marks format compile symbol definition markdown docs) do
   Code.require_file("Support/lib/textmate/#{file}.ex", root)
 end
 
