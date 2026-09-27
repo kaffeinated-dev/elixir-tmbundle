@@ -11,10 +11,6 @@
 	</array>
 	<key>firstLineMatch</key>
 	<string>^#!/.*\belixir</string>
-	<key>foldingStartMarker</key>
-	<string>(after|else|catch|rescue|\-\&gt;|\{|\[|do)\s*$</string>
-	<key>foldingStopMarker</key>
-	<string>^\s*((\}|\]|after|else|catch|rescue)\s*$|end\b)</string>
 	<key>injections</key>
 	<dict>
 		<key>L:(meta.embedded.block.heex meta.tag - meta.embedded.line.heex - string.quoted.double.html - string.quoted.single.html)</key>
@@ -1052,6 +1048,23 @@
 					<string>@doc with metadata, e.g. @doc since: "1.0.0"</string>
 					<key>match</key>
 					<string>((@)(?:module|type|short)?doc)\b(?![?!])</string>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>^\s*(describe|test)\s+(?=\")</string>
+					<key>comment</key>
+					<string>ExUnit describe and test names, for the symbol list.</string>
+					<key>end</key>
+					<string>(?&lt;=\")</string>
+					<key>name</key>
+					<string>meta.$1.elixir</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>$self</string>
+						</dict>
+					</array>
 				</dict>
 				<dict>
 					<key>match</key>

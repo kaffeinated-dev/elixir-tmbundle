@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>name</key>
+	<string>Folding: Templates</string>
+	<key>scope</key>
+	<string>text.html.heex, text.html.elixir</string>
+	<key>settings</key>
+	<dict>
+		<key>foldingIndentedBlockStart</key>
+		<string>&lt;(?!/|!|%)[\w.:-]+(?:\s[^&gt;]*)?$|&lt;(?!/|!|%|(?:area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)\b)([\w.:-]+)\b[^&gt;]*(?&lt;!/)&gt;(?!.*&lt;/\1\s*&gt;)\s*$|^\s*&gt;\s*$|&lt;%[^%]*\b(do|-&gt;)\s*%&gt;\s*$|^\s*&lt;%\s*else\s*%&gt;\s*$</string>
+		<key>foldingStartMarker</key>
+		<string>(?!)</string>
+		<key>foldingStopMarker</key>
+		<string>(?!)</string>
+	</dict>
+	<key>uuid</key>
+	<string>51C7091D-D32A-4E93-B7F4-A6ACD0DAF5A9</string>
+</dict>
+</plist>

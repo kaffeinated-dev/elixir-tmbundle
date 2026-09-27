@@ -82,3 +82,11 @@ quote do: unquote(module).unquote(function)(args)
 :ets.new(:table, [])
 # <---- constant.other.symbol.elixir
 #    ^^^ entity.name.function.elixir
+
+# ExUnit describe and test names, for the symbol list.
+  describe "get!/1" do
+# ^^^^^^^^^^^^^^^^^ meta.describe.elixir
+#          ^^^^^^^^ meta.describe.elixir string.quoted.double.elixir
+    test "returns the user", %{conn: conn} do
+#   ^^^^^^^^^^^^^^^^^^^^^^^ meta.test.elixir
+#                          ^ - meta.test.elixir

@@ -1,0 +1,6 @@
+1-18: defmodule MyApp.AccountsTest do
+4-13: describe "get!/1" do
+5-6: test "returns the user" do
+9-12: test "raises for a missing user" do
+10-11: assert_raise ArgumentError, fn ->
+16-17: test "options include a timeout" do

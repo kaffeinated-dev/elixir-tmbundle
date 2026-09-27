@@ -9,9 +9,11 @@
 	<key>settings</key>
 	<dict>
 		<key>decreaseIndentPattern</key>
-		<string>^\s*((\}|\])\s*$|(after|else|catch|rescue|end)\b)</string>
+		<string>^\s*(end\b|[)\]}]|&gt;&gt;|(else|rescue|catch|after)(?:\s*#.*)?$)</string>
 		<key>increaseIndentPattern</key>
-		<string>^\s*(after|else|catch|rescue|^.*(do|&lt;\-|\-&gt;|\{|\[))\s*$</string>
+		<string>(\bdo|-&gt;|[(\[{]|&lt;&lt;)(?:\s*#.*)?$|^\s*(else|rescue|catch|after)(?:\s*#.*)?$</string>
+		<key>indentNextLinePattern</key>
+		<string>\s(=|&lt;&gt;|\+\+|--|\|\||&amp;&amp;|or|and|when|::|\||=&gt;|in|[-+*/]|==|!=|=~)(?:\s*#.*)?$</string>
 	</dict>
 	<key>uuid</key>
 	<string>313112A0-FC40-4025-97AE-3E85DC0DB08F</string>

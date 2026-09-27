@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>name</key>
+	<string>Folding: Heredocs</string>
+	<key>scope</key>
+	<string>(source.elixir string.quoted.double.heredoc | source.elixir string.quoted.single.heredoc | source.elixir string.quoted.other.sigil.heredoc | source.elixir string.regexp.sigil.heredoc | source.elixir comment.block.documentation.heredoc | source.elixir meta.embedded.block.heex | source.elixir meta.embedded.block.eex) - punctuation.definition.string.end - punctuation.definition.comment.end</string>
+	<key>settings</key>
+	<dict>
+		<key>foldingIndentedBlockStart</key>
+		<string>(?!)</string>
+		<key>foldingStartMarker</key>
+		<string>(\"\"\"|''')\s*$</string>
+	</dict>
+	<key>uuid</key>
+	<string>24C9195E-5B05-4316-8CC5-87A8BAFF9D0F</string>
+</dict>
+</plist>

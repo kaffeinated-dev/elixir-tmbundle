@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>name</key>
-	<string>Symbol List: Protocol implementation</string>
+	<string>Symbol List: Type</string>
 	<key>scope</key>
-	<string>source.elixir meta.protocol_implementation.elixir</string>
+	<string>source.elixir meta.type.elixir entity.name.type.elixir</string>
 	<key>settings</key>
 	<dict>
 		<key>showInSymbolList</key>
 		<integer>1</integer>
 		<key>symbolTransformation</key>
-		<string>s/^\s*defimpl\s+//; s/\s+do\s*$//; s/,\s*for:\s*/ for /; s/$/  (implementation)/</string>
+		<string>s/(.*)/ $1  (type)/</string>
 	</dict>
 	<key>uuid</key>
-	<string>9A0F9FEB-96FF-4967-B654-053F87E10C95</string>
+	<string>B9A6D64B-356F-4704-8635-93764606F0EC</string>
 </dict>
 </plist>

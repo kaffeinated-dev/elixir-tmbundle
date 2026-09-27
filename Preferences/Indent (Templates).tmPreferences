@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>name</key>
+	<string>Indent: Templates</string>
+	<key>scope</key>
+	<string>text.html.heex, text.html.elixir</string>
+	<key>settings</key>
+	<dict>
+		<key>decreaseIndentPattern</key>
+		<string>^\s*(&lt;/|/?&gt;\s*$|&lt;%\s*(end|else)\b)</string>
+		<key>increaseIndentPattern</key>
+		<string>&lt;(?!/|!|%)[\w.:-]+(?:\s[^&gt;]*)?$|&lt;(?!/|!|%|(?:area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)\b)([\w.:-]+)\b[^&gt;]*(?&lt;!/)&gt;(?!.*&lt;/\1\s*&gt;)\s*$|^\s*&gt;\s*$|&lt;%[^%]*\b(do|-&gt;)\s*%&gt;\s*$|^\s*&lt;%\s*else\s*%&gt;\s*$</string>
+		<key>indentNextLinePattern</key>
+		<string>(?!)</string>
+	</dict>
+	<key>uuid</key>
+	<string>3C9CAAF7-F25A-4568-83B4-F804B9BE9E07</string>
+</dict>
+</plist>

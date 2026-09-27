@@ -1,0 +1,35 @@
+1-112: defmodule MyApp.Accounts do
+2-10: @moduledoc """
+19-21: @doc """
+23-28: def get!(id) do
+25-27: case Repo.get(User, id) do
+31-39: def create(attrs \\ %{}) do
+32-33: changeset =
+35-36: if changeset.valid? do
+37-38: else
+42-47: def names(users) do
+44-45: |> Enum.map(fn user ->
+50-54: def options do
+51-53: [
+57-61: def config do
+58-60: %{
+64-66: def greeting(user) do
+65-66: "Hello " <>
+71-78: defp safely(fun) do
+72-73: try do
+74-75: rescue
+76-77: after
+81-86: defp wait do
+82-83: receive do
+84-85: after
+89-92: defmacro __using__(_opts) do
+90-91: quote do
+95-98: def query do
+96-98: """
+101-111: def render(assigns) do
+102-111: ~H"""
+103-109: <div class="accounts">
+104-105: <.table rows={@users}>
+107-108: <p :if={@empty}>
+115-116: defprotocol MyApp.Nameable do
+119-120: defimpl MyApp.Nameable, for: MyApp.User do

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>name</key>
+	<string>Indent: Comments</string>
+	<key>scope</key>
+	<string>source.elixir comment.line, source.elixir punctuation.whitespace.comment.leading</string>
+	<key>settings</key>
+	<dict>
+		<key>decreaseIndentPattern</key>
+		<string>(?!)</string>
+		<key>increaseIndentPattern</key>
+		<string>(?!)</string>
+		<key>indentNextLinePattern</key>
+		<string>(?!)</string>
+	</dict>
+	<key>uuid</key>
+	<string>6EF6C4E8-03CD-40FE-8245-E167211D235B</string>
+</dict>
+</plist>
