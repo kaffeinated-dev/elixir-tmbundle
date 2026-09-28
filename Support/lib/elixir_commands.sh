@@ -265,3 +265,42 @@ elixir_open_iex () {
 		elixir_exit_tool_tip "Could not open Terminal."
 	exit 200
 }
+
+# ===================
+# = Language server =
+# ===================
+
+# Send a request about the code at the caret to the document’s language server
+# (through TextMate) and convert the response with language_server.js. Shows
+# why, and exits, when it can’t.
+elixir_language_server () { # method, conversion (completions or hover)
+	local response output
+	response=$("$TM_MATE" --lsp "$1" --line "${TM_LINE_NUMBER:-1}:$(( ${TM_LINE_INDEX:-0} + 1 ))" 2>&1) ||
+		elixir_exit_tool_tip "This needs TextMate 2.0.23+kaffeinated.3 or later, with the language server client."
+	output=$(printf '%s' "$response" | osascript -l JavaScript "$TM_BUNDLE_SUPPORT/lib/language_server.js" "$2" 2>&1) ||
+		elixir_exit_tool_tip "$(printf '%s' "$output" | sed -E 's/.*execution error: (Error: )*//; s/ \(-?[0-9]+\)$//')"
+	printf '%s' "$output"
+}
+
+# Show the language server’s completions of the word at the caret in a popup.
+# Choosing one completes it, with placeholders for its arguments.
+elixir_complete () {
+	local typed="" suggestions
+	if (( ${TM_LINE_INDEX:-0} > 0 )); then
+		typed=$(printf '%s' "${TM_CURRENT_LINE:-}" | head -c "$TM_LINE_INDEX" | sed -E 's/.*[^[:alnum:]_?!]//')
+	fi
+	suggestions=$(elixir_language_server textDocument/completion completions) || exit
+	[[ -n "$suggestions" ]] || elixir_exit_tool_tip "No completions."
+	"$DIALOG" popup --suggestions "$suggestions" --alreadyTyped "$typed" --additionalWordCharacters '?!'
+	exit 200
+}
+
+# Show what the language server knows about the code at the caret (its type
+# and documentation) in a tool tip.
+elixir_hover () {
+	local html
+	html=$(elixir_language_server textDocument/hover hover) || exit
+	[[ -n "$html" ]] || elixir_exit_tool_tip "No information about this."
+	"$DIALOG" tooltip --html "$html"
+	exit 200
+}
