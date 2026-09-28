@@ -1,0 +1,19 @@
+#!/bin/bash
+# Starts Expert, the Elixir language server, for TextMate (in the project’s
+# folder): with the Elixir set for the project by mise, when installed, else
+# from the PATH. TM_ELIXIR_LANGUAGE_SERVER can be another command that starts
+# a language server using standard input and output.
+. "$TM_BUNDLE_SUPPORT/lib/elixir_commands.sh"
+
+if [[ -n "${TM_ELIXIR_LANGUAGE_SERVER:-}" ]]; then
+	eval "exec $TM_ELIXIR_LANGUAGE_SERVER"
+fi
+
+if mise=$(elixir_mise) && "$mise" which expert >/dev/null 2>&1; then
+	exec "$mise" exec -- expert --stdio
+elif command -v expert >/dev/null; then
+	exec expert --stdio
+fi
+
+echo "Expert was not found. Install it, e.g. with “mise use -g expert” (https://github.com/expert-lsp/expert), or set TM_ELIXIR_LANGUAGE_SERVER to the command of a language server." >&2
+exit 1
