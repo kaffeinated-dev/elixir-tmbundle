@@ -1,5 +1,6 @@
 # Tests the commands and their Elixir support files:  elixir test/commands/run.exs
-ExUnit.start()
+# Tests of what uses JavaScript for Automation run on macOS.
+ExUnit.start(exclude: if(System.find_executable("osascript"), do: [], else: [:macos]))
 
 root = Path.expand("../..", __DIR__)
 

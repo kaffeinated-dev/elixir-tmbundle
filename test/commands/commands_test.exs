@@ -340,7 +340,7 @@ defmodule CommandsTest do
     File.rm!(log)
   end
 
-  describe "the language server" do
+  describe "the language server command" do
     setup %{project: project} do
       script = Path.expand("../../Support/bin/language-server", __DIR__)
       home = Path.join(Path.dirname(project), "home")
@@ -365,6 +365,83 @@ defmodule CommandsTest do
     test "tells when Expert is not installed", %{run: run, home: home} do
       assert {output, 1} = run.([{"HOME", home}, {"PATH", "/usr/bin:/bin"}, {"TM_MISE", nil}])
       assert output =~ "Expert was not found."
+    end
+  end
+
+  describe "the language server requests" do
+    # A mate that answers --lsp with the given output (and status), logging its
+    # arguments, and a $DIALOG that logs its arguments.
+    setup %{project: project} do
+      log = Path.join(Path.dirname(project), "log-#{System.unique_integer([:positive])}")
+
+      fakes = fn output, status ->
+        mate =
+          fake(
+            project,
+            "mate",
+            ~s(printf '%s\\n' "$@" > "#{log}.mate"\ncat <<'JSON'\n#{output}\nJSON\nexit #{status}\n)
+          )
+
+        dialog = fake(project, "dialog", ~s(printf '%s\\n' "$@" > "#{log}.dialog"\n))
+        [{"TM_MATE", Path.join(mate, "mate")}, {"DIALOG", Path.join(dialog, "dialog")}]
+      end
+
+      read = fn suffix -> File.read!(log <> "." <> suffix) end
+      %{fakes: fakes, read: read}
+    end
+
+    @completions ~S|{"result":{"items":[{"label":"map_every(enumerable, nth, fun)","filterText":"map_every","sortText":"2","insertTextFormat":2,"textEdit":{"newText":"map_every(${1:enumerable}, ${2:nth}, ${3:fun})"}},{"label":"map(enumerable, fun)","filterText":"map","sortText":"1","insertTextFormat":2,"textEdit":{"newText":"map(${1:enumerable}, ${2:fun})"}}]}}|
+
+    @tag :macos
+    test "completions are shown in a popup", %{project: project, fakes: fakes, read: read} do
+      env = fakes.(@completions, 0) ++ [{"TM_CURRENT_LINE", "    Enum.ma"}]
+
+      assert %{status: 200} =
+               run_command("Complete", project, "lib/sample.ex", line: 3, index: 11, env: env)
+
+      assert read.("mate") == "--lsp\ntextDocument/completion\n--line\n3:12\n"
+
+      dialog = read.("dialog")
+      assert dialog =~ ~r/\Apopup\n--suggestions\n<\?xml/
+      assert dialog =~ "\n--alreadyTyped\nma\n--additionalWordCharacters\n?!\n"
+      assert dialog =~ "<string>map(enumerable, fun)</string>"
+      assert dialog =~ "<string>(${1:enumerable}, ${2:fun})</string>"
+
+      assert :binary.match(dialog, "map(enumerable") <
+               :binary.match(dialog, "map_every(enumerable")
+    end
+
+    @tag :macos
+    test "errors are shown in a tool tip", %{project: project, fakes: fakes} do
+      error =
+        ~s({"error":{"code":-32601,"message":"There is no language server for this document."}})
+
+      assert %{status: 206, errors: "There is no language server for this document."} =
+               run_command("Complete", project, "lib/sample.ex", env: fakes.(error, 0))
+
+      assert %{status: 206, errors: "This needs TextMate 2.0.23+kaffeinated.3" <> _} =
+               run_command("Complete", project, "lib/sample.ex",
+                 env: fakes.("unknown option", 64)
+               )
+    end
+
+    @tag :macos
+    test "hover information is shown in a tool tip", %{project: project, fakes: fakes, read: read} do
+      hover =
+        ~s({"result":{"contents":{"kind":"markdown","value":"```elixir\\nEnum\\n```\\n\\nFunctions for `enumerables`."}}})
+
+      assert %{status: 200} =
+               run_command("Documentation Tooltip", project, "lib/sample.ex",
+                 env: fakes.(hover, 0)
+               )
+
+      assert read.("dialog") =~ ~r/\Atooltip\n--html\n<style>/
+      assert read.("dialog") =~ "<pre>Enum</pre><p>Functions for <code>enumerables</code>.</p>"
+
+      assert %{status: 206, errors: "No information about this."} =
+               run_command("Documentation Tooltip", project, "lib/sample.ex",
+                 env: fakes.(~s({"result":null}), 0)
+               )
     end
   end
 end
