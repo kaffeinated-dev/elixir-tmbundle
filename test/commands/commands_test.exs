@@ -419,7 +419,7 @@ defmodule CommandsTest do
       assert %{status: 206, errors: "There is no language server for this document."} =
                run_command("Complete", project, "lib/sample.ex", env: fakes.(error, 0))
 
-      assert %{status: 206, errors: "This needs TextMate 2.0.23+kaffeinated.3" <> _} =
+      assert %{status: 206, errors: "This needs TextMate 2.0.23+kaffeinated.4" <> _} =
                run_command("Complete", project, "lib/sample.ex",
                  env: fakes.("unknown option", 64)
                )
@@ -442,6 +442,139 @@ defmodule CommandsTest do
                run_command("Documentation Tooltip", project, "lib/sample.ex",
                  env: fakes.(~s({"result":null}), 0)
                )
+    end
+  end
+
+  describe "the language server’s references, fixes, and symbols" do
+    # A mate that answers each --lsp method with its response, and a $DIALOG
+    # that answers the name prompt with “hello” and menus with their first item.
+    # Both log their arguments.
+    setup %{project: project} do
+      log = Path.join(Path.dirname(project), "log-#{System.unique_integer([:positive])}")
+
+      fakes = fn responses ->
+        cases =
+          for {method, json} <- responses, do: "  #{method}) cat <<'JSON'\n#{json}\nJSON\n  ;;\n"
+
+        mate =
+          fake(project, "mate", """
+          printf '%s\\n' "$@" >> "#{log}.mate"
+          case "$2" in
+          #{cases}esac
+          """)
+
+        dialog =
+          fake(project, "dialog", """
+          printf '%s\\n' "$@" >> "#{log}.dialog"
+          case "$1 $2" in
+            "nib --load") echo 1 ;;
+            "nib --modal") echo '<plist><dict><key>eventInfo</key><dict><key>returnArgument</key><string>hello</string></dict></dict></plist>' ;;
+            menu*) echo '<plist><dict><key>value</key><string>0</string></dict></plist>' ;;
+          esac
+          """)
+
+        [
+          {"TM_MATE", Path.join(mate, "mate")},
+          {"DIALOG", Path.join(dialog, "dialog")},
+          {"TM_SUPPORT_PATH", "/support"}
+        ]
+      end
+
+      read = fn suffix -> File.read!(log <> "." <> suffix) end
+      %{fakes: fakes, read: read}
+    end
+
+    defp location(project, file, line, character) do
+      ~s({"uri":"file://#{Path.join(project, file)}","range":{"start":{"line":#{line},"character":#{character}},"end":{"line":#{line},"character":#{character + 5}}}})
+    end
+
+    @tag :macos
+    test "references are listed by file", %{project: project, fakes: fakes, read: read} do
+      references =
+        ~s({"result":[#{location(project, "lib/sample.ex", 14, 6)},#{location(project, "test/sample_test.exs", 5, 11)}]})
+
+      env = fakes.(%{"textDocument/references" => references}) ++ [{"TM_CURRENT_WORD", "hello"}]
+
+      assert %{status: 0, output: html} =
+               run_command("Find References", project, "lib/sample.ex",
+                 line: 15,
+                 index: 7,
+                 env: env
+               )
+
+      assert html =~ "<title>References to hello</title>"
+      assert html =~ "2 references in 2 files"
+      assert html =~ "<h2>lib/sample.ex</h2>"
+
+      assert html =~
+               ~r{sample.ex&amp;line=15&amp;column=7"><span class="line">15</span> <code>def hello do</code>}
+
+      assert read.("mate") =~ "--lsp-params\n{\"context\":{\"includeDeclaration\":true}}\n"
+
+      assert %{status: 206, errors: "No references found." <> _} =
+               run_command("Find References", project, "lib/sample.ex",
+                 env: fakes.(%{"textDocument/references" => ~s({"result":[]})})
+               )
+    end
+
+    @tag :macos
+    test "a quick fix is chosen from a menu and applied", %{
+      project: project,
+      fakes: fakes,
+      read: read
+    } do
+      edit =
+        ~s({"changes":{"file://#{Path.join(project, "lib/sample.ex")}":[{"newText":"_list","range":{"start":{"line":1,"character":8},"end":{"line":1,"character":12}}}]}})
+
+      actions = ~s({"result":[{"kind":"quickfix","title":"Rename to _list","edit":#{edit}}]})
+
+      env =
+        fakes.(%{
+          "textDocument/codeAction" => actions,
+          "workspace/applyEdit" => ~s({"result":{"applied":true}})
+        })
+
+      assert %{status: 200} =
+               run_command("Quick Fix", project, "lib/sample.ex", line: 2, env: env)
+
+      assert read.("dialog") =~ "<string>Rename to _list</string>"
+
+      assert read.("mate") =~
+               ~s(--lsp\nworkspace/applyEdit\n--line\n2:1\n--lsp-params\n{"label":"Rename to _list","edit":#{edit}}\n)
+
+      env =
+        fakes.(%{
+          "textDocument/codeAction" => actions,
+          "workspace/applyEdit" =>
+            ~s({"result":{"applied":false,"failureReason":"sample.ex changed on disk."}})
+        })
+
+      assert %{status: 206, errors: "sample.ex changed on disk."} =
+               run_command("Quick Fix", project, "lib/sample.ex", env: env)
+
+      assert %{status: 206, errors: "No quick fixes for this line."} =
+               run_command("Quick Fix", project, "lib/sample.ex",
+                 env: fakes.(%{"textDocument/codeAction" => ~s({"result":[]})})
+               )
+    end
+
+    @tag :macos
+    test "a symbol of the project is found by name and opened", %{
+      project: project,
+      fakes: fakes,
+      read: read
+    } do
+      symbols =
+        ~s({"result":[{"name":"Sample.hello/0","kind":12,"location":#{location(project, "lib/sample.ex", 14, 6)}}]})
+
+      assert %{status: 200} =
+               run_command("Go to Symbol in Project", project, "lib/sample.ex",
+                 env: fakes.(%{"workspace/symbol" => symbols})
+               )
+
+      assert read.("dialog") =~ "string = \"\";"
+      assert read.("mate") =~ ~s(--lsp-params\n{"query":"hello"}\n)
+      assert read.("mate") =~ "-l\n15:7\n#{Path.join(project, "lib/sample.ex")}\n"
     end
   end
 end
