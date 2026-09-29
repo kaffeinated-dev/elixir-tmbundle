@@ -88,12 +88,17 @@ Files are formatted when saved, if their project has a `.formatter.exs`. These v
 
 TextMate (from [the kaffeinated-dev fork](https://github.com/kaffeinated-dev/textmate), 2.0.23+kaffeinated.2) runs [Expert](https://github.com/expert-lsp/expert), the Elixir language server, for the Elixir files of a Mix project: it gets the files as they are edited, and its errors and warnings appear as marks in the gutter without saving. Click a mark to read it, and press F3 to go to the next one. Files in `deps` and in umbrella applications belong to the project around them.
 
-With the language server, completion (⎋) suggests what Expert does first, such as the functions of `Enum` after `Enum.ma`. These commands also use it (with TextMate 2.0.23+kaffeinated.3 or later):
+With the language server, completion (⎋) suggests what Expert does first, such as the functions of `Enum` after `Enum.ma`. These commands also use it (with TextMate 2.0.23+kaffeinated.4 or later):
 
 | Command | Key | |
 |---|---|---|
 | Complete | ⌥⎋ | Shows Expert’s completions in a list that narrows as you type. Choosing a function inserts it with placeholders for its arguments (⇥ goes to the next one). |
 | Documentation Tooltip | ⌃⌥H | Shows the type and documentation of the code at the caret in a tool tip. |
+| Quick Fix | ⌥↩ | Shows Expert’s fixes for the line (such as renaming an unused variable to `_list`) in a menu, and applies the one chosen, which ⌘Z undoes. |
+| Find References | ⇧⌃⌘F | Lists the references to the function or module at the caret, with its definition, by file. Click one to open it. |
+| Go to Symbol in Project | ⌥⌘T | Finds functions, modules, and types of the project by name, and opens the one chosen. |
+
+Expert finds references and symbols once it has indexed the project, which takes a little while after it starts.
 
 Install Expert with `mise use -g expert`, or put it on the `PATH` set in Preferences → Variables. The first time Expert opens a project with a new Elixir version, it builds its engine, which takes about a minute. Set `TM_ELIXIR_LANGUAGE_SERVER` to the command of another language server, or `TM_DISABLE_LANGUAGE_SERVER = true` (in Preferences → Variables or a project’s `.tm_properties`) to turn it off.
 
