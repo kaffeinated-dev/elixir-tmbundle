@@ -24,7 +24,7 @@ elixir_go_to_definition
 	<key>outputLocation</key>
 	<string>discard</string>
 	<key>scope</key>
-	<string>source.elixir, text.html.heex</string>
+	<string>source.elixir, text.html.heex, source.elixir attr.language-server</string>
 	<key>uuid</key>
 	<string>03EC6A99-2A3F-4888-9E3C-64C08838E6F4</string>
 	<key>version</key>
